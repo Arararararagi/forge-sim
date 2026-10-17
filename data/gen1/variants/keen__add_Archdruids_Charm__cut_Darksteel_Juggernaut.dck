@@ -1,5 +1,5 @@
 [metadata]
-Name=keen__add_All_Hallow's_Eve__cut_Propaganda
+Name=keen__add_Archdruids_Charm__cut_Darksteel_Juggernaut
 [Main]
 1 Adaptive Omnitool|DRC|[16]
 1 Aether Spellbomb|J22|[752]
@@ -12,7 +12,6 @@ Name=keen__add_All_Hallow's_Eve__cut_Propaganda
 1 Counterspell|SLD|[175]
 1 Cultivator's Caravan|DRC|[127]
 1 Darksteel Citadel|MB2|[107]
-1 Darksteel Juggernaut|BRC|[137]
 1 Duplicant|DRC|[54]
 1 Etherium Sculptor|EOC|[72]
 1 Fall from Favor|CMM|[93]
@@ -42,6 +41,7 @@ Name=keen__add_All_Hallow's_Eve__cut_Propaganda
 1 Ornithopter of Paradise|DRC|[133]
 1 Padeem, Consul of Innovation|J25|[62]
 1 Palladium Myr|PW25|[6]
+1 Propaganda|MSC|[151]
 1 Psychosis Crawler|BLC|[282]
 1 Pull from Tomorrow|SOC|[116]
 1 Remote Isle|DMR|[254]
@@ -66,12 +66,12 @@ Name=keen__add_All_Hallow's_Eve__cut_Propaganda
 1 Vedalken Archmage|JMP|[187]
 1 War Room|SOC|[422]
 1 Whirler Rogue|DRC|[85]
-1 All Hallow's Eve
-1 Watery Grave
-1 Sunken Hollow
-1 Drowned Catacomb
-1 Underground River
-1 Morphic Pool
-1 Shipwreck Marsh
+1 Archdruid's Charm
+1 Breeding Pool
+1 Tropical Island
+1 Simic Growth Chamber
+1 Yavimaya Coast
+1 Botanical Sanctum
+1 Waterlogged Grove
 [Commander]
 1 Sai, Master Thopterist|DRC|[82]

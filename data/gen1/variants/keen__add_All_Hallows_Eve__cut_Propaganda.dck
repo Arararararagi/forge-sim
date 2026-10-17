@@ -1,5 +1,5 @@
 [metadata]
-Name=keen__add_Sinister_Sabotage__cut_Cultivator's_Caravan
+Name=keen__add_All_Hallows_Eve__cut_Propaganda
 [Main]
 1 Adaptive Omnitool|DRC|[16]
 1 Aether Spellbomb|J22|[752]
@@ -10,6 +10,7 @@ Name=keen__add_Sinister_Sabotage__cut_Cultivator's_Caravan
 1 Buried Ruin|EOC|[150]
 1 Chief of the Foundry|J25|[747]
 1 Counterspell|SLD|[175]
+1 Cultivator's Caravan|DRC|[127]
 1 Darksteel Citadel|MB2|[107]
 1 Darksteel Juggernaut|BRC|[137]
 1 Duplicant|DRC|[54]
@@ -21,7 +22,7 @@ Name=keen__add_Sinister_Sabotage__cut_Cultivator's_Caravan
 1 Graaz, Unstoppable Juggernaut|ONE|[229]
 1 Hedron Archive|FDN|[726]
 1 Ichor Wellspring|BRR|[21]
-34 Island|MKM|[273]
+28 Island
 1 Kappa Cannoneer|EOC|[74]
 1 Launch Mishap|J22|[14]
 1 Lonely Sandbar|EOC|[166]
@@ -41,7 +42,6 @@ Name=keen__add_Sinister_Sabotage__cut_Cultivator's_Caravan
 1 Ornithopter of Paradise|DRC|[133]
 1 Padeem, Consul of Innovation|J25|[62]
 1 Palladium Myr|PW25|[6]
-1 Propaganda|MSC|[151]
 1 Psychosis Crawler|BLC|[282]
 1 Pull from Tomorrow|SOC|[116]
 1 Remote Isle|DMR|[254]
@@ -66,6 +66,12 @@ Name=keen__add_Sinister_Sabotage__cut_Cultivator's_Caravan
 1 Vedalken Archmage|JMP|[187]
 1 War Room|SOC|[422]
 1 Whirler Rogue|DRC|[85]
-1 Sinister Sabotage
+1 All Hallow's Eve
+1 Watery Grave
+1 Sunken Hollow
+1 Drowned Catacomb
+1 Underground River
+1 Morphic Pool
+1 Shipwreck Marsh
 [Commander]
 1 Sai, Master Thopterist|DRC|[82]

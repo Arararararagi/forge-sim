@@ -1,26 +1,27 @@
 [metadata]
-Name=keen__add_Raff_Capashen_Ship's_Mage__cut_Sai_Master_Thopterist__add_Remand__cut_Aetherize__add_Strionic_Resonator__cut_Fall_from_Favor
+Name=keen__add_Sinister_Sabotage__cut_Cultivators_Caravan
 [Main]
 1 Adaptive Omnitool|DRC|[16]
 1 Aether Spellbomb|J22|[752]
+1 Aetherize|FDN|[151]
 1 All Is Dust|M3C|[152]
 1 Arcane Signet|FRC|[20]
 1 Broodstar|PLST|[MRD-31]
 1 Buried Ruin|EOC|[150]
 1 Chief of the Foundry|J25|[747]
 1 Counterspell|SLD|[175]
-1 Cultivator's Caravan|DRC|[127]
 1 Darksteel Citadel|MB2|[107]
 1 Darksteel Juggernaut|BRC|[137]
 1 Duplicant|DRC|[54]
 1 Etherium Sculptor|EOC|[72]
+1 Fall from Favor|CMM|[93]
 1 Forsaken Monument|M3C|[293]
 1 Foundry Inspector|SLZ|[104]
 1 Foundry of the Consuls|C18|[248]
 1 Graaz, Unstoppable Juggernaut|ONE|[229]
 1 Hedron Archive|FDN|[726]
 1 Ichor Wellspring|BRR|[21]
-27 Island
+34 Island|MKM|[273]
 1 Kappa Cannoneer|EOC|[74]
 1 Launch Mishap|J22|[14]
 1 Lonely Sandbar|EOC|[166]
@@ -65,14 +66,6 @@ Name=keen__add_Raff_Capashen_Ship's_Mage__cut_Sai_Master_Thopterist__add_Remand_
 1 Vedalken Archmage|JMP|[187]
 1 War Room|SOC|[422]
 1 Whirler Rogue|DRC|[85]
-1 Sai, Master Thopterist
-1 Remand
-1 Strionic Resonator
-1 Hallowed Fountain
-1 Glacial Fortress
-1 Azorius Chancery
-1 Tundra
-1 Port Town
-1 Adarkar Wastes
+1 Sinister Sabotage
 [Commander]
-1 Raff Capashen, Ship's Mage
+1 Sai, Master Thopterist|DRC|[82]

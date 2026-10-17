@@ -4,231 +4,237 @@ swaps:
     changes:
       - add: Rona, Disciple of Gix
         cut: Sai, Master Thopterist
-      - add: Time Sieve
+      - add: Konda's Banner
         cut: Aetherize
-      - add: Sacrifice
+      - add: Giggling Skitterspike
         cut: Fall from Favor
   - id: deep_add_Ral_Monsoon_Mage
     changes:
       - add: Ral, Monsoon Mage
         cut: Sai, Master Thopterist
-      - add: Great Train Heist
+      - add: Stridehangar Automaton
         cut: Aetherize
-      - add: Three Steps Ahead
+      - add: Great Train Heist
         cut: Fall from Favor
   - id: deep_add_Raff_Capashen_Ships_Mage
     changes:
       - add: Raff Capashen, Ship's Mage
         cut: Sai, Master Thopterist
-      - add: Remand
+      - add: Konda's Banner
         cut: Aetherize
-      - add: Strionic Resonator
+      - add: Giggling Skitterspike
         cut: Fall from Favor
   - id: deep_add_Radagast_Wizard_of_Wilds
     changes:
       - add: Radagast, Wizard of Wilds
         cut: Sai, Master Thopterist
-      - add: Doppelgang
+      - add: Springheart Nantuko
         cut: Aetherize
-      - add: Lotus Petal
+      - add: Body of Research
         cut: Fall from Favor
   - id: deep_add_Rayne_Academy_Chancellor
     changes:
       - add: Rayne, Academy Chancellor
         cut: Sai, Master Thopterist
-      - add: Riverchurn Monument
+      - add: Konda's Banner
         cut: Aetherize
-      - add: Illusionist's Bracers
+      - add: Giggling Skitterspike
         cut: Fall from Favor
   - id: deep_add_Ramirez_DePietro_Pillager
     changes:
       - add: Ramirez DePietro, Pillager
         cut: Sai, Master Thopterist
-      - add: Time Sieve
+      - add: Konda's Banner
         cut: Aetherize
-      - add: Sacrifice
+      - add: Giggling Skitterspike
         cut: Fall from Favor
   - id: deep_add_Ral_Leyline_Prodigy
     changes:
       - add: Ral, Leyline Prodigy
         cut: Sai, Master Thopterist
-      - add: Great Train Heist
+      - add: Stridehangar Automaton
         cut: Aetherize
-      - add: Three Steps Ahead
+      - add: Great Train Heist
         cut: Fall from Favor
   - id: deep_add_Ranar_the_Ever-Watchful
     changes:
       - add: Ranar the Ever-Watchful
         cut: Sai, Master Thopterist
-      - add: Remand
+      - add: Konda's Banner
         cut: Aetherize
-      - add: Strionic Resonator
+      - add: Giggling Skitterspike
         cut: Fall from Favor
-  - id: theme_Rona_Disciple_of_Gix__add_Altar_of_Dementia
+  - id: theme_Rona_Disciple_of_Gix__add_Clockwork_Steed
     changes:
-      - add: Altar of Dementia
+      - add: Clockwork Steed
         cut: Propaganda
-  - id: theme_Ral_Monsoon_Mage__add_Skullclamp
+  - id: theme_Ral_Monsoon_Mage__add_Crown_of_Fury
     changes:
-      - add: Skullclamp
+      - add: Crown of Fury
         cut: Propaganda
-  - id: theme_Raff_Capashen_Ships_Mage__add_Altar_of_the_Brood
+  - id: theme_Raff_Capashen_Ships_Mage__add_Clockwork_Swarm
     changes:
-      - add: Altar of the Brood
+      - add: Clockwork Swarm
         cut: Propaganda
-  - id: add_Teach_by_Example
+  - id: payoff_add_add
     changes:
-      - add: Teach by Example
+      - add: Crown of Fury
         cut: Aetherize
-  - id: add_Onward
+  - id: payoff_add_add__add_add
     changes:
-      - add: Onward
-        cut: All Is Dust
-  - id: add_All_Hallows_Eve
-    changes:
-      - add: All Hallow's Eve
-        cut: Propaganda
-  - id: add_Taunting_Challenge
-    changes:
-      - add: Taunting Challenge
+      - add: Crown of Fury
+        cut: Aetherize
+      - add: Crown of Vigor
         cut: Fall from Favor
-  - id: add_Dragon_Fodder
+  - id: payoff_add_add__add_add__add_add
     changes:
-      - add: Dragon Fodder
+      - add: Crown of Fury
         cut: Aetherize
-  - id: add_Reach_the_Horizon
-    changes:
-      - add: Reach the Horizon
+      - add: Crown of Vigor
         cut: Fall from Favor
-  - id: add_Altar_of_the_Pantheon
+      - add: Konda's Banner
+        cut: Propaganda
+  - id: add_Trading_Post
     changes:
-      - add: Altar of the Pantheon
-        cut: All Is Dust
-  - id: add_Louisoixs_Sacrifice
-    changes:
-      - add: Louisoix's Sacrifice
+      - add: Trading Post
         cut: Aetherize
-  - id: add_Whimsy
+  - id: add_Observed_Stasis
     changes:
-      - add: Whimsy
+      - add: Observed Stasis
         cut: All Is Dust
-  - id: add_Wrath_of_Sod
+  - id: add_Adventurers_Airship
     changes:
-      - add: Wrath of Sod
+      - add: Adventurer's Airship
+        cut: Propaganda
+  - id: add_Treasure_Cove
+    changes:
+      - add: Treasure Cove
+        cut: Fall from Favor
+  - id: add_Decoction_Module
+    changes:
+      - add: Decoction Module
+        cut: Aetherize
+  - id: add_Rise_of_the_Varmints
+    changes:
+      - add: Rise of the Varmints
+        cut: Fall from Favor
+  - id: add_Anointed_Procession
+    changes:
+      - add: Anointed Procession
+        cut: All Is Dust
+  - id: add_Lunar_Convocation
+    changes:
+      - add: Lunar Convocation
+        cut: Aetherize
+  - id: add_Well_of_Knowledge
+    changes:
+      - add: Well of Knowledge
+        cut: All Is Dust
+  - id: add_Whirlwind_Technique
+    changes:
+      - add: Whirlwind Technique
         cut: Cultivator's Caravan
-  - id: add_Archdruids_Charm
+  - id: add_Aegis_of_the_Legion
     changes:
-      - add: Archdruid's Charm
+      - add: Aegis of the Legion
         cut: Darksteel Juggernaut
-  - id: add_Oxidize
+  - id: add_Overburden
     changes:
-      - add: Oxidize
+      - add: Overburden
         cut: Aetherize
-  - id: add_Sinister_Sabotage
+  - id: add_Spider-Suit
     changes:
-      - add: Sinister Sabotage
+      - add: Spider-Suit
         cut: Cultivator's Caravan
-  - id: add_Allure_of_Power
+  - id: add_Mardu_Ascendancy
     changes:
-      - add: Allure of Power
+      - add: Mardu Ascendancy
         cut: Broodstar
-  - id: add_Skittering_Surveyor
+  - id: add_Sorcerers_Broom
     changes:
-      - add: Skittering Surveyor
+      - add: Sorcerer's Broom
         cut: All Is Dust
-  - id: add_Monstrous_Rage
+  - id: add_Mogg_Cannon
     changes:
-      - add: Monstrous Rage
+      - add: Mogg Cannon
         cut: Fall from Favor
-  - id: add_Glistening_Extractor
+  - id: add_Gitaxian_Probe
     changes:
-      - add: Glistening Extractor
+      - add: Gitaxian Probe
         cut: Cultivator's Caravan
-  - id: add_Gelatinous_Genesis
+  - id: add_Zagoth_Crystal
     changes:
-      - add: Gelatinous Genesis
+      - add: Zagoth Crystal
         cut: Counterspell
-  - id: add_Jailbreak
+  - id: add_Millstone
     changes:
-      - add: Jailbreak
+      - add: Millstone
         cut: Broodstar
-  - id: add_Uncles_Musings
+  - id: add_Icefall
     changes:
-      - add: Uncle's Musings
+      - add: Icefall
         cut: Darksteel Juggernaut
-  - id: add_Pulse_of_the_Fields
+  - id: add_Paladin_Danse_Steel_Maverick
     changes:
-      - add: Pulse of the Fields
+      - add: Paladin Danse, Steel Maverick
         cut: Fall from Favor
-  - id: add_Cryoclasm
+  - id: add_Coastal_Piracy
     changes:
-      - add: Cryoclasm
+      - add: Coastal Piracy
         cut: Fall from Favor
-  - id: add_Wandering_Stream
+  - id: add_Witchs_Oven
     changes:
-      - add: Wandering Stream
+      - add: Witch's Oven
         cut: Broodstar
-  - id: add_Collective_Brutality
+  - id: add_Chain_of_Silence
     changes:
-      - add: Collective Brutality
+      - add: Chain of Silence
         cut: All Is Dust
-  - id: add_Nagging_Thoughts
+  - id: add_Nimbus_Naiad
     changes:
-      - add: Nagging Thoughts
+      - add: Nimbus Naiad
         cut: Aetherize
-  - id: add_Armguard_Familiar
+  - id: add_Alseid_of_Lifes_Bounty
     changes:
-      - add: Armguard Familiar
+      - add: Alseid of Life's Bounty
         cut: Broodstar
-  - id: add_Gene_Pollinator
+  - id: add_Ghostfire_Blade
     changes:
-      - add: Gene Pollinator
+      - add: Ghostfire Blade
         cut: All Is Dust
-  - id: add_Thran_Lens
+  - id: add_Talisman_of_Unity
     changes:
-      - add: Thran Lens
+      - add: Talisman of Unity
         cut: Cultivator's Caravan
-  - id: add_Omega_Myr
+  - id: add_Omen
     changes:
-      - add: Omega Myr
+      - add: Omen
         cut: Darksteel Juggernaut
-  - id: add_Croaking_Counterpart
+  - id: add_Candy_Trail
     changes:
-      - add: Croaking Counterpart
+      - add: Candy Trail
         cut: Propaganda
-  - id: add_Combat_Courier
+  - id: add_Coercive_Portal
     changes:
-      - add: Combat Courier
+      - add: Coercive Portal
         cut: Counterspell
-  - id: add_Secret_Door
+  - id: add_Scales_of_Shale
     changes:
-      - add: Secret Door
+      - add: Scales of Shale
         cut: Broodstar
-  - id: add_Nuclear_Fallout
+  - id: add_Glare_of_Subdual
     changes:
-      - add: Nuclear Fallout
+      - add: Glare of Subdual
         cut: Propaganda
-  - id: add_Paradoxical_Outcome
+  - id: add_Phyrexian_Furnace
     changes:
-      - add: Paradoxical Outcome
+      - add: Phyrexian Furnace
         cut: All Is Dust
-  - id: add_Spell_Suck
+  - id: add_Summon:_Fenrir
     changes:
-      - add: Spell Suck
+      - add: Summon: Fenrir
         cut: Darksteel Juggernaut
-  - id: add_Call_the_Gatewatch
+  - id: add_Coma_Veil
     changes:
-      - add: Call the Gatewatch
+      - add: Coma Veil
         cut: Broodstar
-  - id: add_Warhosts_Frenzy
-    changes:
-      - add: Warhost's Frenzy
-        cut: All Is Dust
-  - id: add_Meltdown
-    changes:
-      - add: Meltdown
-        cut: Aetherize
-  - id: add_Auto-Key
-    changes:
-      - add: Auto-Key
-        cut: Aetherize

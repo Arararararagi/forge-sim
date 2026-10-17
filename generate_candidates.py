@@ -202,6 +202,58 @@ def identity_key(ident: set):
     return None
 
 
+def _rules_sentences(content_lower: str) -> list:
+    """Human rules text (Oracle:/Description$ fields), sentence-split."""
+    sentences = []
+    for line in content_lower.split("\n"):
+        line = line.strip()
+        if line.startswith("oracle:") or "description$" in line:
+            text = line.split("description$", 1)[-1]
+            if line.startswith("oracle:"):
+                text = line.split(":", 1)[1]
+            text = text.replace("[", "").replace("]", "")
+            sentences.extend(re.split(r"(?<=[.!?])\s+", text))
+    return [s for s in sentences if s]
+
+
+PAYOFF_NEGATIVE_RE = re.compile(r"\b(destroy|exile|sacrific|deathtouch)\b|\-1/\-1", re.IGNORECASE)
+PUMP_RE = re.compile(r"\+[\dxX]/\+[\dxX]", re.IGNORECASE)
+REMOVAL_ALL_RE = re.compile(r"\b(all permanents|destroy all|all creatures|exile all)\b", re.IGNORECASE)
+
+
+def _payoff_info(content_lower: str) -> tuple:
+    """(payoff_signal_count, is_anthem) from affirmative rules text.
+
+    A payoff card scales with board state (anthems, damage-on-presence
+    triggers) rather than being an engine/combo piece. Detection is generic
+    - no card names are hard-coded.
+    """
+    count = 0
+    anthem = False
+    for sentence in _rules_sentences(content_lower):
+        if PAYOFF_NEGATIVE_RE.search(sentence):
+            continue  # wrath/removal phrasing around the same rule kills the hit
+        pump = PUMP_RE.search(sentence)
+        if pump and not re.search(r"\btarget\b", sentence):
+            count += 1  # broad pump (targeted combat tricks don't scale)
+            if "creature type" in sentence:
+                anthem = True
+        elif ("whenever" in sentence
+              and ("enters" in sentence or "attacks" in sentence)
+              and "damage" in sentence):
+            count += 1
+    return count, anthem
+
+
+def _engine_keyword_hits(content_lower: str) -> list:
+    """Engine keywords, with wholesale-removal phrasing discounting the
+    sacrifice/token/draw hits (an 'All Is Dust' shape is not an engine)."""
+    hits = [kw for kw in ["draw", "thopter", "artifact", "sacrifice", "token"] if kw in content_lower]
+    if REMOVAL_ALL_RE.search(content_lower):
+        hits = [k for k in hits if k not in ("sacrifice", "token", "draw")]
+    return hits
+
+
 def score_card(cardsfolder: str, name: str, is_add: bool, combo_cards: set) -> int:
     content = dv.get_card_text(cardsfolder, name)
     if not content:
@@ -218,20 +270,40 @@ def score_card(cardsfolder: str, name: str, is_add: bool, combo_cards: set) -> i
     types_match = re.search(r"^\s*types:\s*(.*)$", content_lower, re.MULTILINE)
     types = types_match.group(1) if types_match else ""
 
-    score = 0
-
     if is_add:
-        if cmc > 4: return -100
-        if not any(t in types for t in ["artifact", "instant", "sorcery"]): return -100
-        if name in combo_cards: score += 20
-        if any(kw in content_lower for kw in ["draw", "thopter", "artifact", "sacrifice", "token"]): score += 10
-        if cmc <= 2: score += 5
-    else:
-        if cmc < 5: return -100
-        if name in combo_cards: score -= 20
-        if any(kw in content_lower for kw in ["draw", "thopter", "artifact"]): score -= 10
+        # No CMC cap: relevance is enforced by monotonic scoring, not by a
+        # hard filter, so a high-cost card can still surface if it ranks.
+        if not any(t in types for t in ["artifact", "instant", "sorcery", "enchantment"]):
+            return -100
 
-    return score
+        in_combo = name in combo_cards
+        engine = bool(_engine_keyword_hits(content_lower))
+        payoff_count, anthem = _payoff_info(content_lower)
+
+        if not (in_combo or engine or payoff_count):
+            # Nothing the archetype cares about: the deeper the cost, the
+            # further below the pool threshold it lands.
+            return -50 - cmc
+
+        score = 0
+        if in_combo: score += 20
+        if engine: score += 10
+        score += 8 * payoff_count
+        if anthem: score += 15
+        if cmc <= 2: score += 5
+        # Cost penalty - payoffs tolerate 2 CMC more than engines.
+        score -= max(0, cmc - 4) if payoff_count else max(0, cmc - 2)
+        return score
+    else:
+        # Cut-side contract used by generate_subbranches: a card is only a
+        # valid cut candidate when it is expensive (CMC >= 5); engine/combo
+        # cards are additionally penalized. Do not "improve" without
+        # updating that consumer.
+        if cmc < 5: return -100
+        if name in combo_cards: score = -20
+        else: score = 0
+        if any(kw in content_lower for kw in ["draw", "thopter", "artifact"]): score -= 10
+        return score
 
 
 def _affinity_keywords(content_lower: str) -> int:
@@ -240,6 +312,9 @@ def _affinity_keywords(content_lower: str) -> int:
     for kw in ["draw", "thopter", "artifact", "sacrifice", "token", "construct", "metalcraft", "improvise"]:
         if kw in content_lower:
             hits += 1
+    payoff_count, _ = _payoff_info(content_lower)
+    if payoff_count:
+        hits += 2  # payoff cards scale with the engine's board presence
     return hits
 
 
@@ -421,7 +496,8 @@ def dedupe_change_sets(variants: list) -> tuple:
 
 def generate_candidates(base_dck_path: str, cardsfolder: str, max_variants: int = 50,
                         seed: int = 42, output_path: str = None,
-                        commanders: int = 8, package_cards: int = 2):
+                        commanders: int = 8, package_cards: int = 2,
+                        payoff_themes: int = 3):
     is_valid_path = os.path.isdir(cardsfolder) or (os.path.isfile(cardsfolder) and cardsfolder.endswith('.zip'))
     if not is_valid_path:
         raise ValueError(f"cardsfolder does not exist or is not a valid directory/zip: '{cardsfolder}'.\n"
@@ -504,7 +580,40 @@ def generate_candidates(base_dck_path: str, cardsfolder: str, max_variants: int 
                 add_candidates.append((name, score))
     print(f"[Info] {len(add_candidates)} candidates for single swaps.")
 
-    singles_budget = max(0, max_variants - len(deep_variants) - len(theme_variants))
+    # ---- Layer: payoff showcases (Sai stays commander) ----
+    # Variants that add the top-ranked payoff card(s) directly to the base
+    # deck so the payoff class is measurable in isolation. v1 = top payoff
+    # alone; v2/v3 = leader + next payoffs, so the change-sets stay distinct.
+    remaining_budget = max(0, max_variants - len(deep_variants) - len(theme_variants))
+    payoff_variants = []
+    payoff_themes_eff = min(payoff_themes, remaining_budget)
+    if payoff_themes_eff > 0:
+        payoffs_ranked = [
+            (n, s) for n, s in add_candidates
+            if _payoff_info(dv.get_card_text(cardsfolder, n).lower())[0] > 0
+        ]
+        payoffs_ranked.sort(key=lambda x: x[1], reverse=True)
+        top = [n for n, _ in payoffs_ranked[: payoff_themes_eff]]
+        for i in range(len(top)):
+            changes = []
+            cuts_used = set()
+            for add_name in top[: i + 1]:
+                cut = next((c for c in weak_pool if c not in cuts_used), None)
+                if cut is None:
+                    break
+                cuts_used.add(cut)
+                changes.append({"add": add_name, "cut": cut})
+            if changes:
+                payoff_variants.append({
+                    "id": "payoff_" + "__".join(
+                        "add_" + a.replace(' ', '_').replace(",", "").replace("'", "") for a, _ in changes
+                    ),
+                    "changes": changes,
+                })
+        print(f"[Info] payoff layer: {len(payoff_variants)} showcase variants "
+              f"(top payoffs: {', '.join(top)})")
+
+    singles_budget = max(0, remaining_budget - len(payoff_variants))
     singles = []
     used_adds = set()
     attempts = 0
@@ -521,7 +630,7 @@ def generate_candidates(base_dck_path: str, cardsfolder: str, max_variants: int 
             "changes": [{"add": add_name, "cut": cut_name}],
         })
 
-    all_variants = deep_variants + theme_variants + singles
+    all_variants = deep_variants + theme_variants + payoff_variants + singles
     for v in all_variants:
         v.pop("_cmdr", None)
 
@@ -555,9 +664,11 @@ def generate_candidates(base_dck_path: str, cardsfolder: str, max_variants: int 
 
     deep_ct = sum(1 for v in survivors if v["id"].startswith("deep_"))
     theme_ct = sum(1 for v in survivors if v["id"].startswith("theme_"))
+    payoff_ct = sum(1 for v in survivors if v["id"].startswith("payoff_"))
     single_ct = sum(1 for v in survivors if v["id"].startswith("add_"))
     print(f"[Success] Generated {len(survivors)} variants to {output_path} "
-          f"(deep: {deep_ct}, theme: {theme_ct}, singles: {single_ct}); dropped {len(dropped)} at materialization smoke.")
+          f"(deep: {deep_ct}, theme: {theme_ct}, payoff: {payoff_ct}, singles: {single_ct}); "
+          f"dropped {len(dropped)} (dedupe/smoke).")
 
 if __name__ == "__main__":
     import argparse
@@ -573,6 +684,8 @@ if __name__ == "__main__":
                         help="How many commander-anchored deep variants to build (identity-diverse)")
     parser.add_argument("--package-cards", type=int, default=2,
                         help="How many extra add/cut pairs each deep variant gets")
+    parser.add_argument("--payoff-themes", type=int, default=3,
+                        help="How many payoff showcase variants (Sai still commanding) to emit; 0 disables")
     parser.add_argument("--seed", type=int, default=42)
     args = parser.parse_args()
 
@@ -585,4 +698,5 @@ if __name__ == "__main__":
         cardsfolder = args.cardsfolder or "../../forge-gui/res/cardsfolder"
 
     generate_candidates(base, cardsfolder, args.max_variants, args.seed, args.out,
-                        commanders=args.commanders, package_cards=args.package_cards)
+                        commanders=args.commanders, package_cards=args.package_cards,
+                        payoff_themes=args.payoff_themes)

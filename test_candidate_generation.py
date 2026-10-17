@@ -57,6 +57,43 @@ class IdentityParsingTest(unittest.TestCase):
             urllib.request.urlopen = orig
 
 
+class PayoffScoringTest(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.cf = CARDSFOLDER
+        cls.combos = gc.OFFLINE_COMBOS["u"]
+
+    def test_anthem_payoff_artifact_scores_positive_uncapped(self):
+        # Coat of Arms: CMC 5 (above the old hard cap) + anthem detection.
+        self.assertGreater(gc.score_card(self.cf, "Coat of Arms", True, self.combos), 0)
+
+    def test_enchantment_payoffs_score_positive(self):
+        for name in ("Shared Animosity", "Impact Tremors", "Obelisk of Urd"):
+            self.assertGreater(gc.score_card(self.cf, name, True, self.combos), 0, name)
+
+    def test_big_removal_sorcery_rejected(self):
+        # Wholesale-removal shapes must not count as engine/payoff cards.
+        self.assertLess(gc.score_card(self.cf, "All Is Dust", True, self.combos), 0)
+
+    def test_engine_cards_still_scored(self):
+        self.assertGreater(gc.score_card(self.cf, "Thoughtcast", True, self.combos), 0)
+
+    def test_payoff_detector_negative_controls(self):
+        # Detection is Oracle:/Description-anchored; use that form here.
+        # Wrath phrasing around a pump clause kills the hit.
+        self.assertEqual(gc._payoff_info("oracle: each creature gets +2/+2 and you destroy all creatures they block."), (0, False))
+        # Targeted combat tricks don't scale; not payoffs.
+        self.assertEqual(gc._payoff_info("oracle: target creature gets +2/+2."), (0, False))
+        # A plain broad boost is a payoff but not an anthem.
+        self.assertEqual(gc._payoff_info("oracle: creatures you control get +1/+1."), (1, False))
+        # Anthems are pump + creature-type comparison.
+        self.assertEqual(gc._payoff_info("oracle: each creature you control gets +1/+1 for each other creature that shares a creature type with it."), (1, True))
+
+    def test_payoff_cards_protected_from_cuts(self):
+        text = dv.get_card_text(self.cf, "Coat of Arms").lower()
+        self.assertGreater(gc._affinity_keywords(text), 2)
+
+
 class DedupeChangeSetsTest(unittest.TestCase):
     def test_identical_change_sets_keep_first_only(self):
         variants = [
@@ -133,6 +170,16 @@ class GeneratedSpecTest(unittest.TestCase):
             with tempfile.TemporaryDirectory() as d:
                 path = dv.make_variant(runtime_env.BASE_DECK, CARDSFOLDER, v["changes"], d)
                 self.assertTrue(os.path.isfile(path))
+
+    def test_payoff_layer_present_sai_commans(self):
+        payoffs = [v for v in self.variants if v["id"].startswith("payoff_")]
+        self.assertGreaterEqual(len(payoffs), 1)
+        self.assertLessEqual(len(payoffs), 3)
+        for v in payoffs:
+            for ch in v["changes"]:
+                self.assertNotEqual(ch["cut"], "Sai, Master Thopterist", v["id"])
+                info = gc._payoff_info(dv.get_card_text(CARDSFOLDER, ch["add"]).lower())
+                self.assertGreater(info[0], 0, (v["id"], ch["add"]))
 
     def test_generated_yaml_has_changes_schema(self):
         with open(self.spec, "r", encoding="utf-8") as f:

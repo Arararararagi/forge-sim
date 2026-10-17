@@ -1,9 +1,8 @@
 [metadata]
-Name=keen__add_Uncle's_Musings__cut_Darksteel_Juggernaut
+Name=keen__add_Rayne_Academy_Chancellor__cut_Sai_Master_Thopterist__add_Riverchurn_Monument__cut_Aetherize__add_Illusionists_Bracers__cut_Fall_from_Favor
 [Main]
 1 Adaptive Omnitool|DRC|[16]
 1 Aether Spellbomb|J22|[752]
-1 Aetherize|FDN|[151]
 1 All Is Dust|M3C|[152]
 1 Arcane Signet|FRC|[20]
 1 Broodstar|PLST|[MRD-31]
@@ -12,16 +11,16 @@ Name=keen__add_Uncle's_Musings__cut_Darksteel_Juggernaut
 1 Counterspell|SLD|[175]
 1 Cultivator's Caravan|DRC|[127]
 1 Darksteel Citadel|MB2|[107]
+1 Darksteel Juggernaut|BRC|[137]
 1 Duplicant|DRC|[54]
 1 Etherium Sculptor|EOC|[72]
-1 Fall from Favor|CMM|[93]
 1 Forsaken Monument|M3C|[293]
 1 Foundry Inspector|SLZ|[104]
 1 Foundry of the Consuls|C18|[248]
 1 Graaz, Unstoppable Juggernaut|ONE|[229]
 1 Hedron Archive|FDN|[726]
 1 Ichor Wellspring|BRR|[21]
-28 Island
+33 Island
 1 Kappa Cannoneer|EOC|[74]
 1 Launch Mishap|J22|[14]
 1 Lonely Sandbar|EOC|[166]
@@ -66,12 +65,8 @@ Name=keen__add_Uncle's_Musings__cut_Darksteel_Juggernaut
 1 Vedalken Archmage|JMP|[187]
 1 War Room|SOC|[422]
 1 Whirler Rogue|DRC|[85]
-1 Uncle's Musings
-1 Breeding Pool
-1 Tropical Island
-1 Simic Growth Chamber
-1 Yavimaya Coast
-1 Botanical Sanctum
-1 Waterlogged Grove
+1 Sai, Master Thopterist
+1 Riverchurn Monument
+1 Illusionist's Bracers
 [Commander]
-1 Sai, Master Thopterist|DRC|[82]
+1 Rayne, Academy Chancellor

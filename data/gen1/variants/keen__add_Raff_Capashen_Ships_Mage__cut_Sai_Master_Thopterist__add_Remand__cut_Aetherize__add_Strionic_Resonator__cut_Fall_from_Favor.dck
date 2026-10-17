@@ -1,5 +1,5 @@
 [metadata]
-Name=keen__add_Rayne_Academy_Chancellor__cut_Sai_Master_Thopterist__add_Riverchurn_Monument__cut_Aetherize__add_Illusionist's_Bracers__cut_Fall_from_Favor
+Name=keen__add_Raff_Capashen_Ships_Mage__cut_Sai_Master_Thopterist__add_Remand__cut_Aetherize__add_Strionic_Resonator__cut_Fall_from_Favor
 [Main]
 1 Adaptive Omnitool|DRC|[16]
 1 Aether Spellbomb|J22|[752]
@@ -20,7 +20,7 @@ Name=keen__add_Rayne_Academy_Chancellor__cut_Sai_Master_Thopterist__add_Riverchu
 1 Graaz, Unstoppable Juggernaut|ONE|[229]
 1 Hedron Archive|FDN|[726]
 1 Ichor Wellspring|BRR|[21]
-33 Island
+27 Island
 1 Kappa Cannoneer|EOC|[74]
 1 Launch Mishap|J22|[14]
 1 Lonely Sandbar|EOC|[166]
@@ -66,7 +66,13 @@ Name=keen__add_Rayne_Academy_Chancellor__cut_Sai_Master_Thopterist__add_Riverchu
 1 War Room|SOC|[422]
 1 Whirler Rogue|DRC|[85]
 1 Sai, Master Thopterist
-1 Riverchurn Monument
-1 Illusionist's Bracers
+1 Remand
+1 Strionic Resonator
+1 Hallowed Fountain
+1 Glacial Fortress
+1 Azorius Chancery
+1 Tundra
+1 Port Town
+1 Adarkar Wastes
 [Commander]
-1 Rayne, Academy Chancellor
+1 Raff Capashen, Ship's Mage

@@ -70,7 +70,8 @@ Three layers of variants, all written uniformly as `changes:` lists:
 |-------|---------------|---------|
 | `deep_`  | 8 | Commander swap (`Sai` → alternative legendary creature, CMC ≤ 4) **plus** 2 identity-appropriate add/cut package pairs. commanders are picked round-robin across identities (ub/ur/uw/ug first), so a Dimir commander ships with Dimir tools, an Izzet one with Izzet tools, etc. New colors are fixed automatically at materialization (6 Islands → corresponding dual lands). |
 | `theme_` | up to 3 | One standalone package-card swap with `Sai` still commanding — measures a package's contribution independently of the commander swap (generation-time sub-branches). |
-| `add_`   | rest of budget | Plain single swaps: highest-synergy mono-U adds over the weakest-synergy cuts. |
+| `payoff_` | up to 3 | `Sai` still commanding; adds the top-ranked **payoff** card(s) — cards whose text scales with the board (anthems/broad pumps/presence-damage triggers detected generically, no hard-coded names). There is no CMC cap: relevance is enforced by monotonic scoring (cost penalty + payoff/engine/combo bonuses), so a 5-CMC `Coat of Arms`-class card ranks on merit, and a big do-nothing spell sinks out. v1 = top payoff alone, v2/v3 add the next-ranked ones. |
+| `add_`   | rest of budget | Plain single swaps: highest-synergy adds over the weakest-synergy cuts. |
 
 Generation-time guarantees:
 
@@ -88,7 +89,8 @@ Generation-time guarantees:
 
 Flags: `--max-variants N` (total budget, default 50), `--commanders N`
 (deep variants, default 8), `--package-cards K` (adds per deep variant,
-default 2), `--seed`. Card names may contain commas — never split on them.
+default 2), `--payoff-themes N` (payoff showcases, default 3, `0` disables),
+`--seed`. Card names may contain commas — never split on them.
 
 ### 3. Smoke variants before a long campaign
 

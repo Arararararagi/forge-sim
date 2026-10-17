@@ -1,8 +1,9 @@
 [metadata]
-Name=keen__add_Louisoix's_Sacrifice__cut_Aetherize
+Name=keen__add_Uncles_Musings__cut_Darksteel_Juggernaut
 [Main]
 1 Adaptive Omnitool|DRC|[16]
 1 Aether Spellbomb|J22|[752]
+1 Aetherize|FDN|[151]
 1 All Is Dust|M3C|[152]
 1 Arcane Signet|FRC|[20]
 1 Broodstar|PLST|[MRD-31]
@@ -11,7 +12,6 @@ Name=keen__add_Louisoix's_Sacrifice__cut_Aetherize
 1 Counterspell|SLD|[175]
 1 Cultivator's Caravan|DRC|[127]
 1 Darksteel Citadel|MB2|[107]
-1 Darksteel Juggernaut|BRC|[137]
 1 Duplicant|DRC|[54]
 1 Etherium Sculptor|EOC|[72]
 1 Fall from Favor|CMM|[93]
@@ -21,7 +21,7 @@ Name=keen__add_Louisoix's_Sacrifice__cut_Aetherize
 1 Graaz, Unstoppable Juggernaut|ONE|[229]
 1 Hedron Archive|FDN|[726]
 1 Ichor Wellspring|BRR|[21]
-34 Island|MKM|[273]
+28 Island
 1 Kappa Cannoneer|EOC|[74]
 1 Launch Mishap|J22|[14]
 1 Lonely Sandbar|EOC|[166]
@@ -66,6 +66,12 @@ Name=keen__add_Louisoix's_Sacrifice__cut_Aetherize
 1 Vedalken Archmage|JMP|[187]
 1 War Room|SOC|[422]
 1 Whirler Rogue|DRC|[85]
-1 Louisoix's Sacrifice
+1 Uncle's Musings
+1 Breeding Pool
+1 Tropical Island
+1 Simic Growth Chamber
+1 Yavimaya Coast
+1 Botanical Sanctum
+1 Waterlogged Grove
 [Commander]
 1 Sai, Master Thopterist|DRC|[82]
