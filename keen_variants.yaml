@@ -1,47 +1,234 @@
 base: /Users/teclas/Programming/forge/sim-results/foundations-commander/decks/Keen_Engineering.dck
 swaps:
-  - id: cmdr_add_Vnwxt_Verbose_Host_cut_Sai_Master_Thopterist
-    add: Vnwxt, Verbose Host
-    cut: Sai, Master Thopterist
-  - id: cmdr_add_Kwain_Itinerant_Meddler_cut_Sai_Master_Thopterist
-    add: Kwain, Itinerant Meddler
-    cut: Sai, Master Thopterist
-  - id: cmdr_add_Kitsa_Otterball_Elite_cut_Sai_Master_Thopterist
-    add: Kitsa, Otterball Elite
-    cut: Sai, Master Thopterist
-  - id: cmdr_add_Lonis_Cryptozoologist_cut_Sai_Master_Thopterist
-    add: Lonis, Cryptozoologist
-    cut: Sai, Master Thopterist
-  - id: cmdr_add_Piper_Wright_Publick_Reporter_cut_Sai_Master_Thopterist
-    add: Piper Wright, Publick Reporter
-    cut: Sai, Master Thopterist
-  - id: iter_add_Reconstructed_Thopter_cut_Broodstar
-    add: Reconstructed Thopter
-    cut: Broodstar
-  - id: iter_add_Innocent_Blood_cut_Forsaken_Monument
-    add: Innocent Blood
-    cut: Forsaken Monument
-  - id: iter_add_Resurrection_cut_Duplicant
-    add: Resurrection
-    cut: Duplicant
-  - id: iter_add_Repel_the_Abominable_cut_All_Is_Dust
-    add: Repel the Abominable
-    cut: All Is Dust
-  - id: iter_add_Remand_cut_Mind's_Eye
-    add: Remand
-    cut: Mind's Eye
-  - id: iter_add_Inspiration_cut_Meteor_Golem
-    add: Inspiration
-    cut: Meteor Golem
-  - id: iter_add_Gallows_at_Willow_Hill_cut_Kappa_Cannoneer
-    add: Gallows at Willow Hill
-    cut: Kappa Cannoneer
-  - id: iter_add_Goblin_Barrage_cut_Graaz_Unstoppable_Juggernaut
-    add: Goblin Barrage
-    cut: Graaz, Unstoppable Juggernaut
-  - id: iter_add_Think_Twice_cut_Darksteel_Juggernaut
-    add: Think Twice
-    cut: Darksteel Juggernaut
-  - id: iter_add_Raugrin_Crystal_cut_Memory_Guardian
-    add: Raugrin Crystal
-    cut: Memory Guardian
+  - id: deep_add_Rona_Disciple_of_Gix
+    changes:
+      - add: Rona, Disciple of Gix
+        cut: Sai, Master Thopterist
+      - add: Time Sieve
+        cut: Aetherize
+      - add: Sacrifice
+        cut: Fall from Favor
+  - id: deep_add_Ral_Monsoon_Mage
+    changes:
+      - add: Ral, Monsoon Mage
+        cut: Sai, Master Thopterist
+      - add: Great Train Heist
+        cut: Aetherize
+      - add: Three Steps Ahead
+        cut: Fall from Favor
+  - id: deep_add_Raff_Capashen_Ships_Mage
+    changes:
+      - add: Raff Capashen, Ship's Mage
+        cut: Sai, Master Thopterist
+      - add: Remand
+        cut: Aetherize
+      - add: Strionic Resonator
+        cut: Fall from Favor
+  - id: deep_add_Radagast_Wizard_of_Wilds
+    changes:
+      - add: Radagast, Wizard of Wilds
+        cut: Sai, Master Thopterist
+      - add: Doppelgang
+        cut: Aetherize
+      - add: Lotus Petal
+        cut: Fall from Favor
+  - id: deep_add_Rayne_Academy_Chancellor
+    changes:
+      - add: Rayne, Academy Chancellor
+        cut: Sai, Master Thopterist
+      - add: Riverchurn Monument
+        cut: Aetherize
+      - add: Illusionist's Bracers
+        cut: Fall from Favor
+  - id: deep_add_Ramirez_DePietro_Pillager
+    changes:
+      - add: Ramirez DePietro, Pillager
+        cut: Sai, Master Thopterist
+      - add: Time Sieve
+        cut: Aetherize
+      - add: Sacrifice
+        cut: Fall from Favor
+  - id: deep_add_Ral_Leyline_Prodigy
+    changes:
+      - add: Ral, Leyline Prodigy
+        cut: Sai, Master Thopterist
+      - add: Great Train Heist
+        cut: Aetherize
+      - add: Three Steps Ahead
+        cut: Fall from Favor
+  - id: deep_add_Ranar_the_Ever-Watchful
+    changes:
+      - add: Ranar the Ever-Watchful
+        cut: Sai, Master Thopterist
+      - add: Remand
+        cut: Aetherize
+      - add: Strionic Resonator
+        cut: Fall from Favor
+  - id: theme_Rona_Disciple_of_Gix__add_Altar_of_Dementia
+    changes:
+      - add: Altar of Dementia
+        cut: Propaganda
+  - id: theme_Ral_Monsoon_Mage__add_Skullclamp
+    changes:
+      - add: Skullclamp
+        cut: Propaganda
+  - id: theme_Raff_Capashen_Ships_Mage__add_Altar_of_the_Brood
+    changes:
+      - add: Altar of the Brood
+        cut: Propaganda
+  - id: add_Teach_by_Example
+    changes:
+      - add: Teach by Example
+        cut: Aetherize
+  - id: add_Onward
+    changes:
+      - add: Onward
+        cut: All Is Dust
+  - id: add_All_Hallows_Eve
+    changes:
+      - add: All Hallow's Eve
+        cut: Propaganda
+  - id: add_Taunting_Challenge
+    changes:
+      - add: Taunting Challenge
+        cut: Fall from Favor
+  - id: add_Dragon_Fodder
+    changes:
+      - add: Dragon Fodder
+        cut: Aetherize
+  - id: add_Reach_the_Horizon
+    changes:
+      - add: Reach the Horizon
+        cut: Fall from Favor
+  - id: add_Altar_of_the_Pantheon
+    changes:
+      - add: Altar of the Pantheon
+        cut: All Is Dust
+  - id: add_Louisoixs_Sacrifice
+    changes:
+      - add: Louisoix's Sacrifice
+        cut: Aetherize
+  - id: add_Whimsy
+    changes:
+      - add: Whimsy
+        cut: All Is Dust
+  - id: add_Wrath_of_Sod
+    changes:
+      - add: Wrath of Sod
+        cut: Cultivator's Caravan
+  - id: add_Archdruids_Charm
+    changes:
+      - add: Archdruid's Charm
+        cut: Darksteel Juggernaut
+  - id: add_Oxidize
+    changes:
+      - add: Oxidize
+        cut: Aetherize
+  - id: add_Sinister_Sabotage
+    changes:
+      - add: Sinister Sabotage
+        cut: Cultivator's Caravan
+  - id: add_Allure_of_Power
+    changes:
+      - add: Allure of Power
+        cut: Broodstar
+  - id: add_Skittering_Surveyor
+    changes:
+      - add: Skittering Surveyor
+        cut: All Is Dust
+  - id: add_Monstrous_Rage
+    changes:
+      - add: Monstrous Rage
+        cut: Fall from Favor
+  - id: add_Glistening_Extractor
+    changes:
+      - add: Glistening Extractor
+        cut: Cultivator's Caravan
+  - id: add_Gelatinous_Genesis
+    changes:
+      - add: Gelatinous Genesis
+        cut: Counterspell
+  - id: add_Jailbreak
+    changes:
+      - add: Jailbreak
+        cut: Broodstar
+  - id: add_Uncles_Musings
+    changes:
+      - add: Uncle's Musings
+        cut: Darksteel Juggernaut
+  - id: add_Pulse_of_the_Fields
+    changes:
+      - add: Pulse of the Fields
+        cut: Fall from Favor
+  - id: add_Cryoclasm
+    changes:
+      - add: Cryoclasm
+        cut: Fall from Favor
+  - id: add_Wandering_Stream
+    changes:
+      - add: Wandering Stream
+        cut: Broodstar
+  - id: add_Collective_Brutality
+    changes:
+      - add: Collective Brutality
+        cut: All Is Dust
+  - id: add_Nagging_Thoughts
+    changes:
+      - add: Nagging Thoughts
+        cut: Aetherize
+  - id: add_Armguard_Familiar
+    changes:
+      - add: Armguard Familiar
+        cut: Broodstar
+  - id: add_Gene_Pollinator
+    changes:
+      - add: Gene Pollinator
+        cut: All Is Dust
+  - id: add_Thran_Lens
+    changes:
+      - add: Thran Lens
+        cut: Cultivator's Caravan
+  - id: add_Omega_Myr
+    changes:
+      - add: Omega Myr
+        cut: Darksteel Juggernaut
+  - id: add_Croaking_Counterpart
+    changes:
+      - add: Croaking Counterpart
+        cut: Propaganda
+  - id: add_Combat_Courier
+    changes:
+      - add: Combat Courier
+        cut: Counterspell
+  - id: add_Secret_Door
+    changes:
+      - add: Secret Door
+        cut: Broodstar
+  - id: add_Nuclear_Fallout
+    changes:
+      - add: Nuclear Fallout
+        cut: Propaganda
+  - id: add_Paradoxical_Outcome
+    changes:
+      - add: Paradoxical Outcome
+        cut: All Is Dust
+  - id: add_Spell_Suck
+    changes:
+      - add: Spell Suck
+        cut: Darksteel Juggernaut
+  - id: add_Call_the_Gatewatch
+    changes:
+      - add: Call the Gatewatch
+        cut: Broodstar
+  - id: add_Warhosts_Frenzy
+    changes:
+      - add: Warhost's Frenzy
+        cut: All Is Dust
+  - id: add_Meltdown
+    changes:
+      - add: Meltdown
+        cut: Aetherize
+  - id: add_Auto-Key
+    changes:
+      - add: Auto-Key
+        cut: Aetherize
