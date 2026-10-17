@@ -66,10 +66,10 @@ def run_unit(unit, args, lock, counters):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--jar", required=True)
+    parser.add_argument("--jar", default="/Users/teclas/Programming/forge/forge-gui-desktop/target/forge-gui-desktop-2.0.15-SNAPSHOT-jar-with-dependencies.jar")
     parser.add_argument("--decks-dir", required=True)
     parser.add_argument("--pool-dir", action="append", required=True)
-    parser.add_argument("--cardsfolder", required=True)
+    parser.add_argument("--cardsfolder", default="/Users/teclas/Programming/forge/forge-gui/res/cardsfolder")
     # FIX: Changed default from "scripts/simlab/keen_variants.yaml" to "keen_variants.yaml"
     parser.add_argument("--variants", default="keen_variants.yaml")
     parser.add_argument("--data-dir", required=True)
@@ -79,7 +79,7 @@ def main():
     parser.add_argument("--ai-timeout", type=int, default=2)
     parser.add_argument("--clock", type=int, default=300)
     parser.add_argument("--java", default="java")
-    parser.add_argument("--cwd", default=".")
+    parser.add_argument("--cwd", default="/Users/teclas/Programming/forge/forge-gui-desktop/target/jpackage-input")
     parser.add_argument("--sim-budget", type=int, default=-1)
     parser.add_argument("--max-variants", type=int, default=None, help="Limit how many variants from the YAML to test")
     args = parser.parse_args()
