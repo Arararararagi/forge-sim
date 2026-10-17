@@ -33,9 +33,30 @@ python3 /Users/teclas/Programming/forge-sim/validate_jsonl.py /tmp/manual_test.j
 
 ## Base deck & variants
 
-`keen_variants.yaml` pins `base:` to the canonical deck and lists `swaps:`
-(`add`/`cut` pairs). During a run each swap is materialized into a variant deck
-under `<data-dir>/variants/<id>.dck`.
+`keen_variants.yaml` pins `base:` to the canonical deck and lists `swaps:`.
+Each swap is materialized into a variant deck under
+`<data-dir>/variants/keen__add_<A>__cut_<C>.dck` (spaces/commas stripped).
+
+Two replacement forms (card names may contain commas — never split on them):
+
+```yaml
+base: /Users/teclas/Programming/forge/sim-results/foundations-commander/decks/Keen_Engineering.dck
+swaps:
+  # single-card replacement
+  - add: Vnwxt, Verbose Host
+    cut: Sai, Master Thopterist
+  # multiple replacements in one deck
+  - id: multi_add_Ponder_Preordain
+    changes:
+      - add: Ponder
+        cut: Thought Monitor
+      - add: Preordain
+        cut: Thoughtcast
+```
+
+`id:` is optional — editor-generated swap ids are derived from add/cut.
+Every variant deck (plus `baseline`) is recorded in `<data-dir>/manifest.json`,
+including variants that failed to materialize (`skipped`).
 
 ## Opponent pool
 
@@ -53,7 +74,7 @@ pool needs **at least 3 valid decks**.
 
 ```bash
 cd /Users/teclas/Programming/forge-sim
-python3 auto_variants.py --preset quick    # 1 baseline game, 40k sim budget (smoke)
+python3 auto_variants.py --preset quick    # smoke: baseline only, 1 game, 40k sim budget
 python3 auto_variants.py --preset medium   # 5 variants x 3 reps
 python3 auto_variants.py --preset large    # all variants x 10 reps
 ```
@@ -67,6 +88,11 @@ python3 auto_variants.py --preset medium --reps 5 --workers 8 \
   --max-variants 3 --data-dir data/my_campaign
 ```
 
+Note: `quick` is baseline-only by design — pass `--max-variants N` to include
+variants in a quick run. Manifest counters (`completed/timeout/error/games`)
+and per-variant JSONL (0 bytes ⇒ deck-load failure, counted as `error`) live
+in `--data-dir`.
+
 ## Report
 
 Aggregate every `.jsonl` in a campaign by canonical variant:
@@ -74,3 +100,31 @@ Aggregate every `.jsonl` in a campaign by canonical variant:
 ```bash
 python3 report.py --data-dir data/auto_quick --out-csv report.csv --out-md report.md
 ```
+
+Columns: `variant, games, wins, win_share, ci_lo, ci_hi (Wilson 95%),
+timeouts, timeout_rate, lost_first_rate, avg_turns, winner`. Variants
+declared in `manifest.json` (materialized or skipped) always appear, even
+with 0 games.
+
+## Iterating (sub-branches)
+
+After a campaign with games, promote winners to a next-generation spec:
+variants whose Wilson lower bound beats the baseline share become
+"graduates", and for each graduate one new add/cut (EDHREC-informed combo
+card) is stacked on top of its parent's changes:
+
+```bash
+python3 generate_subbranches.py --iter1-data-dir data/iter1
+# -> data/iter2/keen_variants.yaml; run it as the next campaign:
+python3 auto_variants.py --preset medium \
+  --variants data/iter2/keen_variants.yaml --data-dir data/iter2
+```
+
+## Tests
+
+```bash
+python3 -m unittest discover . -p "test_*.py"
+```
+
+Stdlib only, no network required (EDHREC fetch falls back to an offline
+combo list).
