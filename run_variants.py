@@ -61,7 +61,7 @@ def run_unit(unit, args, lock, counters):
         with lock:
             counters["error"] += 1
             print(f"Error running {variant_id}: {e}")
-def main():
+def main(argv=None):
     parser = argparse.ArgumentParser()
     parser.add_argument("--jar", default="/Users/teclas/Programming/forge/forge-gui-desktop/target/forge-gui-desktop-2.0.15-SNAPSHOT-jar-with-dependencies.jar")
     parser.add_argument("--decks-dir", required=True)
@@ -79,7 +79,7 @@ def main():
     parser.add_argument("--cwd", default="/Users/teclas/Programming/forge/forge-gui-desktop/target/jpackage-input")
     parser.add_argument("--sim-budget", type=int, default=-1)
     parser.add_argument("--max-variants", type=int, default=None, help="Limit how many variants from the YAML to test")
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
     
     os.makedirs(args.data_dir, exist_ok=True)
     variants_dir = os.path.join(args.data_dir, "variants")
