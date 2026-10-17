@@ -41,17 +41,15 @@ def variant_units(variants: list, reps: int, pool: list, seed_base: int) -> list
 
 def run_unit(unit, args, lock, counters):
     variant_id = unit["variant_id"]
-    out_file = os.path.join(args.data_dir, f"{variant_id}.jsonl")
-    worker_home = os.path.join(args.data_dir, f"worker_{variant_id}_{unit['rep']}")
+    # Write per-unit JSONL (include rep/seed) so reps don't overwrite
+    out_file = os.path.join(args.data_dir, f"{variant_id}_r{unit['rep']}_s{unit['seed']}.jsonl")
+    worker_home = os.path.join(args.data_dir, f"worker_{variant_id}_r{unit['rep']}_s{unit['seed']}")
     os.makedirs(worker_home, exist_ok=True)
-    
     focal_deck = args.base_deck if variant_id == "baseline" else os.path.join(args.data_dir, "variants", f"{variant_id}.dck")
-    
     cmd = pod_command(
         args.jar, focal_deck, unit["opponents"], ["Default"] * 4,
         args.games, unit["seed"], args.ai_timeout, args.clock, out_file, worker_home, args.java, args.sim_budget
     )
-    
     try:
         result = subprocess.run(cmd, cwd=args.cwd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=args.clock + 60)
         with lock:
@@ -63,7 +61,6 @@ def run_unit(unit, args, lock, counters):
         with lock:
             counters["error"] += 1
             print(f"Error running {variant_id}: {e}")
-
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--jar", default="/Users/teclas/Programming/forge/forge-gui-desktop/target/forge-gui-desktop-2.0.15-SNAPSHOT-jar-with-dependencies.jar")
