@@ -110,6 +110,35 @@ class DedupeChangeSetsTest(unittest.TestCase):
         self.assertEqual(len(sigs), len(set(sigs)))
 
 
+class CommanderPickOrderTest(unittest.TestCase):
+    """Regression: per-identity commander picks must follow score, not row
+    order (the old sort ranked by identity-string and discarded scores)."""
+
+    ROWS = [
+        # (name, identity, score) - shuffled / unsorted on purpose
+        ("weak_ub", "ub", 5), ("weak_u", "u", 12), ("weak_ug", "ug", 3),
+        ("strong_u", "u", 45), ("weak_uw", "uw", 9), ("strong_ub", "ub", 40),
+        ("strong_ur", "ur", 44), ("weak_ur", "ur", 11),
+        ("mid_ub", "ub", 20), ("strong_uw", "uw", 38), ("strong_ug", "ug", 36),
+        ("tie_ub", "ub", 40),
+    ]
+
+    def test_picks_highest_scored_per_identity_in_round_robin(self):
+        picked = gc.pick_commanders_diverse(self.ROWS, 8)
+        # Round-robin over ub/ur/uw/ug/u; each slot takes the identity's best.
+        self.assertEqual([p[0] for p in picked[:5]],
+                         ["strong_ub", "strong_ur", "strong_uw", "strong_ug", "strong_u"])
+        # Second round: ub has tie_ub (40, name-sorted first).
+        self.assertEqual(picked[5][0], "tie_ub")
+        self.assertEqual(picked[6][0], "weak_ur")
+        self.assertEqual(picked[7][0], "weak_uw")
+
+    def test_deterministic_under_row_reordering(self):
+        forward = gc.pick_commanders_diverse(self.ROWS, 5)
+        backward = gc.pick_commanders_diverse(list(reversed(self.ROWS)), 5)
+        self.assertEqual([p[0] for p in forward], [p[0] for p in backward])
+
+
 class GeneratedSpecTest(unittest.TestCase):
     """One live generation pass (network mocked to the offline lists),
     exercising the real cardsfolder."""

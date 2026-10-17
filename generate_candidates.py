@@ -361,14 +361,22 @@ def get_commander_candidates(cardsfolder: str, base_deck: dict, combos_by_identi
         if score > 0:
             candidates.append((name, key, score))
 
-    return sorted(candidates, key=lambda x: x[1], reverse=True)
+    # Sort by score (identity-key string sort was a bug: it ordered picks
+    # arbitrarily within each identity and effectively discarded scoring).
+    return sorted(candidates, key=lambda x: (-x[2], x[0]))
 
 
 def pick_commanders_diverse(candidates: list, limit: int) -> list:
-    """Round-robins pair identities (ub/ur/uw/ug) before letting mono-U flood."""
+    """Round-robins pair identities (ub/ur/uw/ug) before letting mono-U flood.
+
+    Within each identity the highest scoring commander is taken first; never
+    trust the caller's row order for ranking.
+    """
     groups = {}
     for c in candidates:
         groups.setdefault(c[1], []).append(c)
+    for g in groups.values():
+        g.sort(key=lambda x: (-x[2], x[0]))
 
     picked = []
     keys_round = [k for k in ("ub", "ur", "uw", "ug", "u") if k in groups]

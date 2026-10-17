@@ -1,10 +1,10 @@
 Error handling registered!
-00:04:59 [INFO ] GuiBase: ##########################################
-00:04:59 [INFO ] GuiBase: APP: Forge v.2.0.15-SNAPSHOT-10.15
-00:04:59 [INFO ] GuiBase: Java: 22 (Oracle Corporation)
-00:04:59 [INFO ] GuiBase: OS: Mac OS X 26.6.2 aarch64
-00:04:59 [INFO ] GuiBase: RAM: 2048 MB max, 8 CPUs
-00:04:59 [INFO ] GuiBase: ##########################################
+00:21:57 [INFO ] GuiBase: ##########################################
+00:21:57 [INFO ] GuiBase: APP: Forge v.2.0.15-SNAPSHOT-10.15
+00:21:57 [INFO ] GuiBase: Java: 22 (Oracle Corporation)
+00:21:57 [INFO ] GuiBase: OS: Mac OS X 26.6.2 aarch64
+00:21:57 [INFO ] GuiBase: RAM: 2048 MB max, 8 CPUs
+00:21:57 [INFO ] GuiBase: ##########################################
 Language 'en-US' loaded successfully.
 (ThreadUtil first call): Running with priority 5
 Read cards: 34007 archived files in 1 ms (25 parts) using thread pool
@@ -31,5 +31,6 @@ The card Treetop Recluse was not assigned to any set. Adding it to UNKNOWN set..
 Upcoming set Star Trek (TRK) dated in the future. All `upcoming` cards will be added to this set with unknown rarity.
 Read cards: 854 files in 0 ms (8 parts) using thread pool
 Simulation mode
-Ai(1)-keen__add_Ramirez_DePietro_Pillager__cut_Sai_Master_Thopterist__add_Time_Sieve__cut_Aetherize__add_Sacrifice__cut_Fall_from_Favor [Default] vs Ai(2)-Kraum, Ludevic's Opus __ Toggo, Goblin Weaponsmith [June 2026] [Default] vs Ai(3)-Burakos, Party Leader __ Master Chef [September 2026] [Default] vs Ai(4)-Alena, Kessig Trapper __ Keskit, the Flesh Sculptor [August 2026] [Default] - one game of Commander seed 4242
-Warning: default (ie. inherited from base class) implementation of confirmAction is used by Kraum, Ludevic's Opus for forge.ai.ability.PermanentCreatureAi. Consider declaring an overloaded method
+Ai(1)-keen__add_Ramirez_DePietro_Pillager__cut_Sai_Master_Thopterist__add_Kondas_Banner__cut_Aetherize__add_Giggling_Skitterspike__cut_Fall_from_Favor [Default] vs Ai(2)-Kraum, Ludevic's Opus __ Toggo, Goblin Weaponsmith [June 2026] [Default] vs Ai(3)-Burakos, Party Leader __ Master Chef [September 2026] [Default] vs Ai(4)-Alena, Kessig Trapper __ Keskit, the Flesh Sculptor [August 2026] [Default] - one game of Commander seed 4242
+Correcting zone for Solemn Doomguide (289)
+Correcting zone for Solemn Doomguide (289)

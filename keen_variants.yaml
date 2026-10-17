@@ -1,78 +1,78 @@
 base: /Users/teclas/Programming/forge/sim-results/foundations-commander/decks/Keen_Engineering.dck
 swaps:
-  - id: deep_add_Rona_Disciple_of_Gix
+  - id: deep_add_Emet-Selch_Unsundered
     changes:
-      - add: Rona, Disciple of Gix
+      - add: Emet-Selch, Unsundered
         cut: Sai, Master Thopterist
       - add: Konda's Banner
         cut: Aetherize
       - add: Giggling Skitterspike
         cut: Fall from Favor
-  - id: deep_add_Ral_Monsoon_Mage
+  - id: deep_add_River_Song
     changes:
-      - add: Ral, Monsoon Mage
+      - add: River Song
         cut: Sai, Master Thopterist
       - add: Stridehangar Automaton
         cut: Aetherize
       - add: Great Train Heist
         cut: Fall from Favor
-  - id: deep_add_Raff_Capashen_Ships_Mage
+  - id: deep_add_Kwain_Itinerant_Meddler
     changes:
-      - add: Raff Capashen, Ship's Mage
+      - add: Kwain, Itinerant Meddler
         cut: Sai, Master Thopterist
       - add: Konda's Banner
         cut: Aetherize
       - add: Giggling Skitterspike
         cut: Fall from Favor
-  - id: deep_add_Radagast_Wizard_of_Wilds
+  - id: deep_add_Lonis_Cryptozoologist
     changes:
-      - add: Radagast, Wizard of Wilds
+      - add: Lonis, Cryptozoologist
         cut: Sai, Master Thopterist
       - add: Springheart Nantuko
         cut: Aetherize
       - add: Body of Research
         cut: Fall from Favor
-  - id: deep_add_Rayne_Academy_Chancellor
+  - id: deep_add_Kitsa_Otterball_Elite
     changes:
-      - add: Rayne, Academy Chancellor
+      - add: Kitsa, Otterball Elite
         cut: Sai, Master Thopterist
       - add: Konda's Banner
         cut: Aetherize
       - add: Giggling Skitterspike
         cut: Fall from Favor
-  - id: deep_add_Ramirez_DePietro_Pillager
+  - id: deep_add_Hades_Sorcerer_of_Eld
     changes:
-      - add: Ramirez DePietro, Pillager
+      - add: Hades, Sorcerer of Eld
         cut: Sai, Master Thopterist
       - add: Konda's Banner
         cut: Aetherize
       - add: Giggling Skitterspike
         cut: Fall from Favor
-  - id: deep_add_Ral_Leyline_Prodigy
+  - id: deep_add_Vivi_Ornitier
     changes:
-      - add: Ral, Leyline Prodigy
+      - add: Vivi Ornitier
         cut: Sai, Master Thopterist
       - add: Stridehangar Automaton
         cut: Aetherize
       - add: Great Train Heist
         cut: Fall from Favor
-  - id: deep_add_Ranar_the_Ever-Watchful
+  - id: deep_add_Urza_Lord_Protector
     changes:
-      - add: Ranar the Ever-Watchful
+      - add: Urza, Lord Protector
         cut: Sai, Master Thopterist
       - add: Konda's Banner
         cut: Aetherize
       - add: Giggling Skitterspike
         cut: Fall from Favor
-  - id: theme_Rona_Disciple_of_Gix__add_Clockwork_Steed
+  - id: theme_Emet-Selch_Unsundered__add_Clockwork_Steed
     changes:
       - add: Clockwork Steed
         cut: Propaganda
-  - id: theme_Ral_Monsoon_Mage__add_Crown_of_Fury
+  - id: theme_River_Song__add_Crown_of_Fury
     changes:
       - add: Crown of Fury
         cut: Propaganda
-  - id: theme_Raff_Capashen_Ships_Mage__add_Clockwork_Swarm
+  - id: theme_Kwain_Itinerant_Meddler__add_Clockwork_Swarm
     changes:
       - add: Clockwork Swarm
         cut: Propaganda
