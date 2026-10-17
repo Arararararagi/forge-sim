@@ -15,33 +15,33 @@ swaps:
   - id: cmdr_add_Piper_Wright_Publick_Reporter_cut_Sai_Master_Thopterist
     add: Piper Wright, Publick Reporter
     cut: Sai, Master Thopterist
-  - id: iter_add_Reconstructed_Thopter_cut_Kappa_Cannoneer
+  - id: iter_add_Reconstructed_Thopter_cut_Broodstar
     add: Reconstructed Thopter
-    cut: Kappa Cannoneer
-  - id: iter_add_Innocent_Blood_cut_Thought_Monitor
-    add: Innocent Blood
-    cut: Thought Monitor
-  - id: iter_add_Resurrection_cut_Shimmer_Dragon
-    add: Resurrection
-    cut: Shimmer Dragon
-  - id: iter_add_Repel_the_Abominable_cut_Broodstar
-    add: Repel the Abominable
     cut: Broodstar
-  - id: iter_add_Remand_cut_Psychosis_Crawler
-    add: Remand
-    cut: Psychosis Crawler
-  - id: iter_add_Inspiration_cut_Myr_Battlesphere
-    add: Inspiration
-    cut: Myr Battlesphere
-  - id: iter_add_Gallows_at_Willow_Hill_cut_Duplicant
-    add: Gallows at Willow Hill
+  - id: iter_add_Innocent_Blood_cut_Forsaken_Monument
+    add: Innocent Blood
+    cut: Forsaken Monument
+  - id: iter_add_Resurrection_cut_Duplicant
+    add: Resurrection
     cut: Duplicant
-  - id: iter_add_Goblin_Barrage_cut_Darksteel_Juggernaut
+  - id: iter_add_Repel_the_Abominable_cut_All_Is_Dust
+    add: Repel the Abominable
+    cut: All Is Dust
+  - id: iter_add_Remand_cut_Mind's_Eye
+    add: Remand
+    cut: Mind's Eye
+  - id: iter_add_Inspiration_cut_Meteor_Golem
+    add: Inspiration
+    cut: Meteor Golem
+  - id: iter_add_Gallows_at_Willow_Hill_cut_Kappa_Cannoneer
+    add: Gallows at Willow Hill
+    cut: Kappa Cannoneer
+  - id: iter_add_Goblin_Barrage_cut_Graaz_Unstoppable_Juggernaut
     add: Goblin Barrage
-    cut: Darksteel Juggernaut
-  - id: iter_add_Think_Twice_cut_Research_Thief
-    add: Think Twice
-    cut: Research Thief
-  - id: iter_add_Raugrin_Crystal_cut_Graaz_Unstoppable_Juggernaut
-    add: Raugrin Crystal
     cut: Graaz, Unstoppable Juggernaut
+  - id: iter_add_Think_Twice_cut_Darksteel_Juggernaut
+    add: Think Twice
+    cut: Darksteel Juggernaut
+  - id: iter_add_Raugrin_Crystal_cut_Memory_Guardian
+    add: Raugrin Crystal
+    cut: Memory Guardian

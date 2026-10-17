@@ -83,34 +83,110 @@ def sample_pod(pool: list, k: int, rng: random.Random) -> list:
         raise ValueError(f"Pool size {len(pool)} is less than required pod size {k}")
     return rng.sample(pool, k)
 
-def load_variants(path: str) -> list[dict]:
-    variants = []
+def resolve_base(path: str) -> str:
+    """Resolve only the ``base:`` value of a spec, relative to the spec dir."""
     base_path = ""
-    current_swap = None
-    in_swaps = False
+    with open(path, "r", encoding="utf-8") as f:
+        for raw in f:
+            stripped = raw.strip()
+            if stripped.startswith("base:"):
+                base_path = _parse_value(stripped.split(":", 1)[1])
+                break
+    if not base_path:
+        raise ValueError(f"No 'base:' found in {path}")
+    spec_dir = os.path.dirname(os.path.abspath(path))
+    resolved = os.path.normpath(os.path.join(spec_dir, base_path))
+    if not os.path.exists(resolved):
+        raise ValueError(f"Base deck not found: {resolved}")
+    return resolved
+
+
+def _indent(line: str) -> int:
+    return len(line) - len(line.lstrip(" "))
+
+
+def _parse_value(raw: str) -> str:
+    return raw.strip().strip('"').strip("'")
+
+
+def load_variants(path: str) -> list[dict]:
+    """Parse a variant spec.
+
+    Supported schema (indentation-sensitive, 2-space steps)::
+
+        base: <path to base deck>
+        swaps:
+          - id: <variant id>
+            add: <single card to add>     # a card name MAY contain commas
+            cut: <single card to cut>
+          - id: <variant id>
+            changes:                      # multi-card replacement
+              - add: <card>
+                cut: <card>
+              - add: <card>
+                cut: <card>
+
+    Every returned variant has ``id``, ``base`` (resolved, absolute) and
+    ``changes`` (a non-empty list of ``{"add", "cut"}`` single-card swaps).
+    The flat ``add``/``cut`` form is normalised into a one-element
+    ``changes`` list. Comma-separated card names are NOT split: a card name
+    like "Vnwxt, Verbose Host" is a single card. Use the nested ``changes``
+    form for genuine multi-card replacements.
+    """
+    base_path = ""
+    variants = []
+    current = None       # the variant dict currently being built
+    change = None        # the change currently being built (nested form)
+    section = None       # "swaps" once seen
 
     with open(path, "r", encoding="utf-8") as f:
-        for line in f:
-            line = line.rstrip()
-            if not line or line.startswith("#"):
+        for raw in f:
+            line = raw.rstrip("\n")
+            stripped = line.strip()
+            if not stripped or stripped.startswith("#"):
+                continue
+            indent = _indent(line)
+
+            if indent == 0 and stripped.startswith("base:"):
+                base_path = _parse_value(stripped.split(":", 1)[1])
+                continue
+            if indent == 0 and stripped == "swaps:":
+                section = "swaps"
+                continue
+            if section != "swaps":
                 continue
 
-            if line.startswith("base:"):
-                base_path = line.split(":", 1)[1].strip()
-            elif line.strip() == "swaps:":
-                in_swaps = True
-            elif in_swaps and line.strip().startswith("- id:"):
-                if current_swap:
-                    variants.append(current_swap)
-                current_swap = {"id": line.split(":", 1)[1].strip(), "add": "", "cut": ""}
-            elif in_swaps and current_swap is not None:
-                if line.strip().startswith("add:"):
-                    current_swap["add"] = line.split(":", 1)[1].strip()
-                elif line.strip().startswith("cut:"):
-                    current_swap["cut"] = line.split(":", 1)[1].strip()
+            if indent <= 2 and stripped.startswith("- id:"):
+                if current is not None:
+                    variants.append(current)
+                current = {"id": _parse_value(stripped.split(":", 1)[1]), "changes": []}
+                change = None
+                continue
+            if current is None:
+                continue
 
-        if current_swap:
-            variants.append(current_swap)
+            # nested change entries live at deeper indentation
+            if indent >= 6 and stripped.startswith("- add:"):
+                change = {"add": _parse_value(stripped.split(":", 1)[1]), "cut": ""}
+                current["changes"].append(change)
+                continue
+
+            key, _, raw_val = stripped.partition(":")
+            key = key.strip()
+            val = _parse_value(raw_val)
+
+            if key == "add":
+                # flat form -> start a single change
+                change = {"add": val, "cut": ""}
+                current["changes"].append(change)
+            elif key == "cut":
+                if change is None:
+                    change = {"add": "", "cut": ""}
+                    current["changes"].append(change)
+                change["cut"] = val
+
+    if current is not None:
+        variants.append(current)
 
     if not base_path:
         raise ValueError(f"No 'base:' found in {path}")
@@ -133,10 +209,18 @@ def load_variants(path: str) -> list[dict]:
             raise ValueError(f"Duplicate variant id: {v['id']}")
         seen_ids.add(v["id"])
 
-        if v["add"] in base_names:
-            raise ValueError(f"Add card '{v['add']}' already in base deck.")
-        if v["cut"] not in base_names:
-            raise ValueError(f"Cut card '{v['cut']}' not in base deck.")
+        if not v["changes"]:
+            raise ValueError(f"Variant '{v['id']}' has no add/cut changes.")
+
+        for ch in v["changes"]:
+            if not ch["add"] or not ch["cut"]:
+                raise ValueError(f"Variant '{v['id']}' has an incomplete add/cut change: {ch}")
+            if ch["add"] == ch["cut"]:
+                raise ValueError(f"Variant '{v['id']}' adds and cuts the same card: {ch['add']}")
+            if ch["add"] in base_names and ch["add"] not in {c["cut"] for c in v["changes"]}:
+                raise ValueError(f"Add card '{ch['add']}' already in base deck.")
+            if ch["cut"] not in base_names and ch["cut"] not in {c["add"] for c in v["changes"]}:
+                raise ValueError(f"Cut card '{ch['cut']}' not in base deck.")
 
         # Attach the resolved base path to each variant for consistency
         v["base"] = base_path

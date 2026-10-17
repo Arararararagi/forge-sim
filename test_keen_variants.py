@@ -35,8 +35,10 @@ class KeenVariantsTest(unittest.TestCase):
         for v in self.variants:
             self.assertEqual(v["base"], runtime_env.BASE_DECK)
             self.assertTrue(v["id"], v)
-            self.assertTrue(v["add"], v)
-            self.assertTrue(v["cut"], v)
+            self.assertTrue(v["changes"], v)
+            for ch in v["changes"]:
+                self.assertTrue(ch["add"], v)
+                self.assertTrue(ch["cut"], v)
         ids = [v["id"] for v in self.variants]
         self.assertEqual(len(ids), len(set(ids)), "duplicate variant ids")
 
@@ -52,8 +54,16 @@ class KeenVariantsTest(unittest.TestCase):
         self.assertEqual(dv.total_qty(base_deck["main"]) + len(base_deck["commander"]), 100)
 
         for v in self.variants:
-            self.assertNotIn(v["add"], base_names, v["id"])
-            self.assertIn(v["cut"], base_names, v["id"])
+            adds = {c["add"] for c in v["changes"]}
+            cuts = {c["cut"] for c in v["changes"]}
+            for ch in v["changes"]:
+                # A card added must not already be in the base (unless it is
+                # itself cut by another change in the same variant), and a cut
+                # card must exist in the base (or be added by another change).
+                if ch["add"] not in cuts:
+                    self.assertNotIn(ch["add"], base_names, (v["id"], ch["add"]))
+                if ch["cut"] not in adds:
+                    self.assertIn(ch["cut"], base_names, (v["id"], ch["cut"]))
 
 
 if __name__ == "__main__":

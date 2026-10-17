@@ -187,7 +187,7 @@ def get_commander_candidates(cardsfolder: str, base_deck: dict, combo_cards: set
 
     return sorted(candidates, key=lambda x: x[1], reverse=True)
 
-def generate_candidates(base_dck_path: str, cardsfolder: str, max_variants: int = 50, seed: int = 42):
+def generate_candidates(base_dck_path: str, cardsfolder: str, max_variants: int = 50, seed: int = 42, output_path: str = None):
     is_valid_path = os.path.isdir(cardsfolder) or (os.path.isfile(cardsfolder) and cardsfolder.endswith('.zip'))
     if not is_valid_path:
         raise ValueError(f"cardsfolder does not exist or is not a valid directory/zip: '{cardsfolder}'.\n"
@@ -267,12 +267,12 @@ def generate_candidates(base_dck_path: str, cardsfolder: str, max_variants: int 
             })
             used_cuts.add(cut_name)
 
-    # Write YAML
-    spec_dir = os.path.dirname(os.path.abspath(__file__))
-    output_path = os.path.join(spec_dir, "keen_variants.yaml")
+    # Write YAML. Base is written as an absolute path so the spec is robust to
+    # where it is stored and where the harness is invoked from.
+    output_path = output_path or os.path.join(os.path.dirname(os.path.abspath(__file__)), "keen_variants.yaml")
 
     with open(output_path, "w", encoding="utf-8") as f:
-        f.write(f"base: {os.path.relpath(base_dck_path, spec_dir)}\n")
+        f.write(f"base: {os.path.abspath(base_dck_path)}\n")
         f.write("swaps:\n")
         for s in swaps:
             f.write(f"  - id: {s['id']}\n")
@@ -284,10 +284,22 @@ def generate_candidates(base_dck_path: str, cardsfolder: str, max_variants: int 
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser(description="Generate data-driven deck variants")
-    parser.add_argument("--base", default="../../sim-results/foundations-commander/decks/Keen_Engineering.dck")
-    parser.add_argument("--cardsfolder", default="../../forge-gui/res/cardsfolder")
+    parser.add_argument("--base", default=None,
+                        help="Base deck (defaults to the canonical Keen Engineering deck)")
+    parser.add_argument("--cardsfolder", default=None,
+                        help="Forge cardsfolder (defaults to the canonical res/cardsfolder)")
+    parser.add_argument("--out", default=None,
+                        help="Output spec path (defaults to keen_variants.yaml next to this script)")
     parser.add_argument("--max-variants", type=int, default=50, help="Limit the number of combinations to test")
     parser.add_argument("--seed", type=int, default=42)
     args = parser.parse_args()
 
-    generate_candidates(args.base, args.cardsfolder, args.max_variants, args.seed)
+    try:
+        import runtime_env
+        base = args.base or runtime_env.BASE_DECK
+        cardsfolder = args.cardsfolder or os.path.join(runtime_env.FORGE_ROOT, "forge-gui/res/cardsfolder")
+    except Exception:
+        base = args.base or "../../sim-results/foundations-commander/decks/Keen_Engineering.dck"
+        cardsfolder = args.cardsfolder or "../../forge-gui/res/cardsfolder"
+
+    generate_candidates(base, cardsfolder, args.max_variants, args.seed, args.out)

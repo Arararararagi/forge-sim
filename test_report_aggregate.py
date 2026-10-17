@@ -53,6 +53,20 @@ class ReportAggregateTest(unittest.TestCase):
             self.assertEqual(byv["baseline"]["games"], 3)
             self.assertEqual(byv["v1"]["games"], 4)
 
+    def test_manifest_variants_without_jsonl_are_recorded(self):
+        with tempfile.TemporaryDirectory() as d:
+            with open(os.path.join(d, "baseline_r0_s1.jsonl"), "w") as f:
+                f.write(json.dumps({"winnerSeat": 0, "timeout": False, "turns": 4}) + "\n")
+            # A variant that produced no games at all (failed deck load / skipped).
+            with open(os.path.join(d, "manifest.json"), "w") as f:
+                json.dump({"variants": ["baseline", "never_ran"], "skipped": ["broke_on_build"]}, f)
+            res = load_results(d)
+            byv = {r["variant"]: r for r in res}
+            self.assertIn("never_ran", byv)
+            self.assertIn("broke_on_build", byv)
+            self.assertEqual(byv["never_ran"]["games"], 0)
+            self.assertEqual(byv["broke_on_build"]["games"], 0)
+
 
 if __name__ == "__main__":
     unittest.main()

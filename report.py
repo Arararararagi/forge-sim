@@ -78,6 +78,21 @@ def load_results(data_dir: str) -> list:
             grouped[cvid] = []
         grouped[cvid].append(os.path.join(data_dir, fname))
 
+    # Record every variant declared in the manifest, even if it produced no
+    # games (failed deck-load, skipped before materialisation, etc.) so that
+    # no variant silently disappears from the report.
+    manifest_path = os.path.join(data_dir, "manifest.json")
+    if os.path.exists(manifest_path):
+        try:
+            with open(manifest_path, "r", encoding="utf-8") as f:
+                manifest = json.load(f)
+            for vid in manifest.get("variants", []):
+                grouped.setdefault(vid, [])
+            for vid in manifest.get("skipped", []):
+                grouped.setdefault(vid, [])
+        except Exception:
+            pass
+
     for variant_id, fpaths in grouped.items():
         rows = []
         for fpath in fpaths:
@@ -96,8 +111,6 @@ def load_results(data_dir: str) -> list:
         ci_lo, ci_hi = wilson_interval(wins, n)
         timeouts = sum(1 for r in rows if r.get("timeout"))
         total_games = len(rows)
-        if total_games == 0:
-            continue
         timeout_rate = timeouts / total_games if total_games > 0 else 0.0
         bd = failure_breakdown(rows)
         lost_first_rate = bd["lost_first"] / total_games if total_games > 0 else 0.0
