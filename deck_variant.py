@@ -254,8 +254,8 @@ def make_variant(base_path: str, cardsfolder: str, swaps: list[dict], out_dir: s
     # Generate a clean ID from the swaps
     parts = []
     for s in swaps:
-        parts.append(f"add_{s['add'].replace(' ', '_').replace(',', '')}")
-        parts.append(f"cut_{s['cut'].replace(' ', '_').replace(',', '')}")
+        parts.append(f"add_{filename_safe(s['add'])}")
+        parts.append(f"cut_{filename_safe(s['cut'])}")
     variant_name = "keen__" + "__".join(parts)
 
     out_path = os.path.join(out_dir, variant_name + ".dck")
@@ -354,7 +354,19 @@ FIX_LANDS = {
 }
 
 def variant_id(add: str, cut: str) -> str:
-    return f"keen__add_{add.replace(' ', '_').replace(',', '')}__cut_{cut.replace(' ', '_').replace(',', '')}"
+    return f"keen__add_{filename_safe(add)}__cut_{filename_safe(cut)}"
+
+
+def filename_safe(name: str) -> str:
+    """Filesystem-safe card-name fragment for deck filenames.
+
+    Stops at apostrophes, commas and any other punctuation: special
+    characters in deck paths turned out to be an avoidable failure mode
+    when handing paths to external tooling.
+    """
+    s = name.replace("'", "")
+    s = re.sub(r"[^A-Za-z0-9_-]+", "_", s)
+    return s.strip("_") or "card"
 
 def write_variant(base: dict, out_path: str, name: str):
     with open(out_path, "w", encoding="utf-8") as f:

@@ -398,6 +398,27 @@ def build_changes_for_variant(cmdr_name: str, base_cmdr: str, package_adds: list
     return changes
 
 
+def dedupe_change_sets(variants: list) -> tuple:
+    """Keeps the first variant for each distinct change-set signature.
+
+    Returns (kept_variants, dropped{id: reason}). Two variants with the
+    same set of (add, cut) pairs are literally the same deck; the writer
+    would also map them onto one filename.
+    """
+    keep = []
+    dropped = {}
+    seen_sets = {}
+    for v in variants:
+        sig = tuple(sorted((c["add"], c["cut"]) for c in v["changes"]))
+        if sig in seen_sets:
+            dropped[v["id"]] = f"duplicate of {seen_sets[sig]}"
+            print(f"[Skip] {v['id']}: duplicate deck of {seen_sets[sig]}")
+            continue
+        seen_sets[sig] = v["id"]
+        keep.append(v)
+    return keep, dropped
+
+
 def generate_candidates(base_dck_path: str, cardsfolder: str, max_variants: int = 50,
                         seed: int = 42, output_path: str = None,
                         commanders: int = 8, package_cards: int = 2):
@@ -504,8 +525,11 @@ def generate_candidates(base_dck_path: str, cardsfolder: str, max_variants: int 
     for v in all_variants:
         v.pop("_cmdr", None)
 
+    # Two variants must never materialize to the same deck: identical
+    # change-sets (e.g. two theme singles converging on the same package
+    # add) share one filename and would silently test one variant twice.
+    all_variants, dropped = dedupe_change_sets(all_variants)
     # ---- Materialization smoke: drop variants the harness cannot build ----
-    dropped = {}
     survivors = []
     with tempfile.TemporaryDirectory() as smoke_dir:
         for v in all_variants:

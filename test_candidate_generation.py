@@ -57,6 +57,22 @@ class IdentityParsingTest(unittest.TestCase):
             urllib.request.urlopen = orig
 
 
+class DedupeChangeSetsTest(unittest.TestCase):
+    def test_identical_change_sets_keep_first_only(self):
+        variants = [
+            {"id": "theme_A", "changes": [{"add": "X", "cut": "P"}]},
+            {"id": "theme_B", "changes": [{"add": "X", "cut": "P"}]},
+            {"id": "deep_C", "changes": [{"add": "X", "cut": "P"}, {"add": "Y", "cut": "Q"}]},
+            {"id": "add_D", "changes": [{"add": "Z", "cut": "R"}]},
+        ]
+        keep, dropped = gc.dedupe_change_sets(variants)
+        self.assertEqual([v["id"] for v in keep], ["theme_A", "deep_C", "add_D"])
+        self.assertEqual(dropped, {"theme_B": "duplicate of theme_A"})
+        # Order preserved for life in the spec.
+        sigs = [tuple(sorted((c["add"], c["cut"]) for c in v["changes"])) for v in keep]
+        self.assertEqual(len(sigs), len(set(sigs)))
+
+
 class GeneratedSpecTest(unittest.TestCase):
     """One live generation pass (network mocked to the offline lists),
     exercising the real cardsfolder."""

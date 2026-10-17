@@ -60,12 +60,15 @@ def focal_deck_for(variant_id: str, args) -> str:
 
 def run_unit(unit, args, lock, counters):
     variant_id = unit["variant_id"]
-    # Write per-unit JSONL (include rep/seed) so reps don't overwrite
-    out_file = os.path.join(args.data_dir, f"{variant_id}_r{unit['rep']}_s{unit['seed']}.jsonl")
-    worker_home = os.path.join(args.data_dir, f"worker_{variant_id}_r{unit['rep']}_s{unit['seed']}")
+    # Forge runs with cwd=args.cwd (the jpackage-input dir), so ANY path
+    # passed to the java process (-d decks, -o output, worker home) must be
+    # absolute or it silently resolves against that cwd and the game either
+    # fails to load the deck or writes its JSONL somewhere invisible.
+    out_file = os.path.abspath(os.path.join(args.data_dir, f"{variant_id}_r{unit['rep']}_s{unit['seed']}.jsonl"))
+    worker_home = os.path.abspath(os.path.join(args.data_dir, f"worker_{variant_id}_r{unit['rep']}_s{unit['seed']}"))
     os.makedirs(worker_home, exist_ok=True)
     try:
-        focal_deck = focal_deck_for(variant_id, args)
+        focal_deck = os.path.abspath(focal_deck_for(variant_id, args))
     except KeyError as e:
         with lock:
             counters["error"] += 1
@@ -76,8 +79,9 @@ def run_unit(unit, args, lock, counters):
             counters["error"] += 1
         print(f"[Error] Focal deck missing for {variant_id}: {focal_deck}")
         return
+    opponent_paths = [os.path.abspath(p) for p in unit["opponents"]]
     cmd = pod_command(
-        args.jar, focal_deck, unit["opponents"], ["Default"] * 4,
+        args.jar, focal_deck, opponent_paths, ["Default"] * 4,
         args.games, unit["seed"], args.ai_timeout, args.clock, out_file, worker_home, args.java, args.sim_budget
     )
     try:

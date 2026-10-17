@@ -1,4 +1,5 @@
 import os
+import re
 import sys
 import json
 import types
@@ -73,6 +74,78 @@ class MaterialisationContractTest(unittest.TestCase):
         args = types.SimpleNamespace(base_deck=runtime_env.BASE_DECK, variant_paths={})
         with self.assertRaises(KeyError):
             rv.focal_deck_for("missing", args)
+
+    def test_variant_filename_strips_apostrophes_and_punctuation(self):
+        cf = os.path.join(runtime_env.FORGE_ROOT, "forge-gui/res/cardsfolder")
+        changes = [
+            {"add": "Raff Capashen, Ship's Mage", "cut": "Aetherize"},
+            {"add": "Illusionist's Bracers", "cut": "Fall from Favor"},
+        ]
+        path = dv.make_variant(runtime_env.BASE_DECK, cf, changes, self.variants_dir)
+        self.assertTrue(os.path.isfile(path), path)
+        stem = os.path.basename(path)[:-len(".dck")]
+        self.assertNotIn("'", stem)
+        self.assertTrue(re.fullmatch(r"[\w\-]+", stem), stem)
+
+
+class RelativeDataDirTest(unittest.TestCase):
+    """Forge runs with a different cwd; every path handed to the java
+    process (focal deck, opponents, -o output) must be absolute, even when
+    the campaign was launched with a relative --data-dir."""
+
+    def test_run_unit_absolutizes_all_paths(self):
+        import threading
+        tmp = tempfile.mkdtemp()
+        calls = []
+
+        class FakeCompleted:
+            returncode = 0
+
+        def fake_run(cmd, **kwargs):
+            calls.append(cmd)
+            out = cmd[cmd.index("-o") + 1]
+            os.makedirs(os.path.dirname(out), exist_ok=True)
+            open(out, "w").close()
+            return FakeCompleted()
+
+        real_run, real_makedirs = rv.subprocess.run, rv.os.makedirs
+        rv.subprocess.run = fake_run
+        rv.os.makedirs = lambda *a, **k: None  # keep the relative dir uncreated
+        try:
+            variant_deck = os.path.join(tmp, "v.dck")
+            with open(variant_deck, "w") as f:
+                f.write("[metadata]\nName=v\n[Main]\n1 Island\n[Commander]\n1 Sai\n")
+            args = types.SimpleNamespace(
+                data_dir="rel_out",  # RELATIVE on purpose
+                base_deck=runtime_env.BASE_DECK,
+                variant_paths={"v1": variant_deck},
+                jar=runtime_env.HARNESS_JAR,
+                cwd=runtime_env.CWD,
+                java="java",
+                ai_timeout=2,
+                clock=300,
+                games=1,
+                sim_budget=-1,
+            )
+            unit = {"variant_id": "v1", "rep": 0, "seed": 4242,
+                    "opponents": ["oppA.dck", "oppB.dck", "oppC.dck"]}
+            counters = {"completed": 0, "timeout": 0, "error": 0, "games": 0}
+            rv.run_unit(unit, args, threading.Lock(), counters)
+
+            self.assertEqual(counters["error"], 1, counters)  # 0-byte fake run
+
+            argv = calls[0]
+            d_args = argv[argv.index("-d") + 1:]
+            # -d focal deck followed by three opponent decks
+            self.assertTrue(os.path.isabs(d_args[0]), d_args)
+            self.assertEqual(d_args[0], os.path.abspath(variant_deck))
+            for p in d_args[1:4]:
+                self.assertTrue(os.path.isabs(p), (p, argv))
+            out_path = argv[argv.index("-o") + 1]
+            self.assertTrue(os.path.isabs(out_path), out_path)
+        finally:
+            rv.subprocess.run = real_run
+            rv.os.makedirs = real_makedirs
 
 
 class EmptyOutputDetectionTest(unittest.TestCase):
