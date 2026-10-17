@@ -1,0 +1,47 @@
+base: /Users/teclas/Programming/forge/sim-results/foundations-commander/decks/Keen_Engineering.dck
+swaps:
+  - id: cmdr_add_Vnwxt_Verbose_Host_cut_Sai_Master_Thopterist
+    add: Vnwxt, Verbose Host
+    cut: Sai, Master Thopterist
+  - id: cmdr_add_Kwain_Itinerant_Meddler_cut_Sai_Master_Thopterist
+    add: Kwain, Itinerant Meddler
+    cut: Sai, Master Thopterist
+  - id: cmdr_add_Kitsa_Otterball_Elite_cut_Sai_Master_Thopterist
+    add: Kitsa, Otterball Elite
+    cut: Sai, Master Thopterist
+  - id: cmdr_add_Lonis_Cryptozoologist_cut_Sai_Master_Thopterist
+    add: Lonis, Cryptozoologist
+    cut: Sai, Master Thopterist
+  - id: cmdr_add_Piper_Wright_Publick_Reporter_cut_Sai_Master_Thopterist
+    add: Piper Wright, Publick Reporter
+    cut: Sai, Master Thopterist
+  - id: iter_add_Reconstructed_Thopter_cut_Kappa_Cannoneer
+    add: Reconstructed Thopter
+    cut: Kappa Cannoneer
+  - id: iter_add_Innocent_Blood_cut_Thought_Monitor
+    add: Innocent Blood
+    cut: Thought Monitor
+  - id: iter_add_Resurrection_cut_Shimmer_Dragon
+    add: Resurrection
+    cut: Shimmer Dragon
+  - id: iter_add_Repel_the_Abominable_cut_Broodstar
+    add: Repel the Abominable
+    cut: Broodstar
+  - id: iter_add_Remand_cut_Psychosis_Crawler
+    add: Remand
+    cut: Psychosis Crawler
+  - id: iter_add_Inspiration_cut_Myr_Battlesphere
+    add: Inspiration
+    cut: Myr Battlesphere
+  - id: iter_add_Gallows_at_Willow_Hill_cut_Duplicant
+    add: Gallows at Willow Hill
+    cut: Duplicant
+  - id: iter_add_Goblin_Barrage_cut_Darksteel_Juggernaut
+    add: Goblin Barrage
+    cut: Darksteel Juggernaut
+  - id: iter_add_Think_Twice_cut_Research_Thief
+    add: Think Twice
+    cut: Research Thief
+  - id: iter_add_Raugrin_Crystal_cut_Graaz_Unstoppable_Juggernaut
+    add: Raugrin Crystal
+    cut: Graaz, Unstoppable Juggernaut
