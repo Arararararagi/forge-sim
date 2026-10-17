@@ -21,8 +21,8 @@ import runtime_env
 
 REPO_DIR = os.path.dirname(os.path.abspath(__file__))
 
-DEFAULT_POOL_DIR = os.path.join(
-    runtime_env.FORGE_ROOT, "sim-results/foundations-commander/decks"
+DEFAULT_POOL_DIR = os.path.expanduser(
+    "~/Library/Application Support/Forge/decks/net/EDHREC Average Decks"
 )
 DEFAULT_CARDSFOLDER = os.path.join(runtime_env.FORGE_ROOT, "forge-gui/res/cardsfolder")
 DEFAULT_VARIANTS = os.path.join(REPO_DIR, "keen_variants.yaml")

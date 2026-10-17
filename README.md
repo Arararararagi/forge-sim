@@ -204,8 +204,10 @@ swaps:
 
 ## Opponent pool
 
-Default pool: `/Users/teclas/Programming/forge/sim-results/foundations-commander/decks/`
-(5 diverse Foundations precons). Validate any candidate pool with:
+Default pool: `/Users/teclas/Library/Application Support/Forge/decks/net/EDHREC Average Decks`
+(~6.6k EDHREC Average commander decks; ~6.65k validate, ~25 s validation at
+campaign start). Pods of 3 random opponents are sampled per rep from the full
+pool. Validate any candidate pool with:
 
 ```python
 import opponents
