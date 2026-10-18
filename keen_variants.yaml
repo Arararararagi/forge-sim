@@ -8,6 +8,8 @@ swaps:
         cut: Aetherize
       - add: Giggling Skitterspike
         cut: Fall from Favor
+      - add: Clockwork Steed
+        cut: Propaganda
   - id: deep_add_River_Song
     changes:
       - add: River Song
@@ -16,6 +18,8 @@ swaps:
         cut: Aetherize
       - add: Great Train Heist
         cut: Fall from Favor
+      - add: Crown of Fury
+        cut: Propaganda
   - id: deep_add_Kwain_Itinerant_Meddler
     changes:
       - add: Kwain, Itinerant Meddler
@@ -24,6 +28,8 @@ swaps:
         cut: Aetherize
       - add: Giggling Skitterspike
         cut: Fall from Favor
+      - add: Clockwork Steed
+        cut: Propaganda
   - id: deep_add_Lonis_Cryptozoologist
     changes:
       - add: Lonis, Cryptozoologist
@@ -32,6 +38,8 @@ swaps:
         cut: Aetherize
       - add: Body of Research
         cut: Fall from Favor
+      - add: Crown of Vigor
+        cut: Propaganda
   - id: deep_add_Kitsa_Otterball_Elite
     changes:
       - add: Kitsa, Otterball Elite
@@ -40,6 +48,8 @@ swaps:
         cut: Aetherize
       - add: Giggling Skitterspike
         cut: Fall from Favor
+      - add: Clockwork Steed
+        cut: Propaganda
   - id: deep_add_Hades_Sorcerer_of_Eld
     changes:
       - add: Hades, Sorcerer of Eld
@@ -48,6 +58,8 @@ swaps:
         cut: Aetherize
       - add: Giggling Skitterspike
         cut: Fall from Favor
+      - add: Clockwork Steed
+        cut: Propaganda
   - id: deep_add_Vivi_Ornitier
     changes:
       - add: Vivi Ornitier
@@ -56,6 +68,8 @@ swaps:
         cut: Aetherize
       - add: Great Train Heist
         cut: Fall from Favor
+      - add: Crown of Fury
+        cut: Propaganda
   - id: deep_add_Urza_Lord_Protector
     changes:
       - add: Urza, Lord Protector
@@ -64,18 +78,60 @@ swaps:
         cut: Aetherize
       - add: Giggling Skitterspike
         cut: Fall from Favor
-  - id: theme_Emet-Selch_Unsundered__add_Clockwork_Steed
-    changes:
       - add: Clockwork Steed
         cut: Propaganda
-  - id: theme_River_Song__add_Crown_of_Fury
+  - id: deep_add_Adrix_and_Nev_Twincasters
     changes:
+      - add: Adrix and Nev, Twincasters
+        cut: Sai, Master Thopterist
+      - add: Springheart Nantuko
+        cut: Aetherize
+      - add: Body of Research
+        cut: Fall from Favor
+      - add: Crown of Vigor
+        cut: Propaganda
+  - id: deep_add_Emry_Lurker_of_the_Loch
+    changes:
+      - add: Emry, Lurker of the Loch
+        cut: Sai, Master Thopterist
+      - add: Konda's Banner
+        cut: Aetherize
+      - add: Giggling Skitterspike
+        cut: Fall from Favor
+      - add: Clockwork Steed
+        cut: Propaganda
+  - id: deep_add_Wilhelt_the_Rotcleaver
+    changes:
+      - add: Wilhelt, the Rotcleaver
+        cut: Sai, Master Thopterist
+      - add: Konda's Banner
+        cut: Aetherize
+      - add: Giggling Skitterspike
+        cut: Fall from Favor
+      - add: Clockwork Steed
+        cut: Propaganda
+  - id: deep_add_Mizzix_of_the_Izmagnus
+    changes:
+      - add: Mizzix of the Izmagnus
+        cut: Sai, Master Thopterist
+      - add: Stridehangar Automaton
+        cut: Aetherize
+      - add: Great Train Heist
+        cut: Fall from Favor
       - add: Crown of Fury
         cut: Propaganda
-  - id: theme_Kwain_Itinerant_Meddler__add_Clockwork_Swarm
+  - id: theme_Emet-Selch_Unsundered__add_Clockwork_Swarm
     changes:
       - add: Clockwork Swarm
-        cut: Propaganda
+        cut: All Is Dust
+  - id: theme_River_Song__add_Kondas_Banner
+    changes:
+      - add: Konda's Banner
+        cut: All Is Dust
+  - id: theme_Kwain_Itinerant_Meddler__add_Clockwork_Avian
+    changes:
+      - add: Clockwork Avian
+        cut: All Is Dust
   - id: payoff_add_add
     changes:
       - add: Crown of Fury
@@ -238,3 +294,187 @@ swaps:
     changes:
       - add: Coma Veil
         cut: Broodstar
+  - id: add_Weapons_Manufacturing
+    changes:
+      - add: Weapons Manufacturing
+        cut: All Is Dust
+  - id: add_Mirrormade
+    changes:
+      - add: Mirrormade
+        cut: Aetherize
+  - id: add_Arming_Gala
+    changes:
+      - add: Arming Gala
+        cut: Aetherize
+  - id: add_Mobilizer_Mech
+    changes:
+      - add: Mobilizer Mech
+        cut: Cultivator's Caravan
+  - id: add_Foul-Tongue_Invocation
+    changes:
+      - add: Foul-Tongue Invocation
+        cut: Fall from Favor
+  - id: add_Smoke
+    changes:
+      - add: Smoke
+        cut: Counterspell
+  - id: add_Sword_of_Hearth_and_Home
+    changes:
+      - add: Sword of Hearth and Home
+        cut: Darksteel Juggernaut
+  - id: add_Dismantling_Wave
+    changes:
+      - add: Dismantling Wave
+        cut: Darksteel Juggernaut
+  - id: add_Self-Reflection
+    changes:
+      - add: Self-Reflection
+        cut: Broodstar
+  - id: add_Temporal_Aperture
+    changes:
+      - add: Temporal Aperture
+        cut: All Is Dust
+  - id: add_Warriors_Stand
+    changes:
+      - add: Warrior's Stand
+        cut: Broodstar
+  - id: add_Verdant_Command
+    changes:
+      - add: Verdant Command
+        cut: Cultivator's Caravan
+  - id: add_Chronicle_of_Victory
+    changes:
+      - add: Chronicle of Victory
+        cut: All Is Dust
+  - id: add_Teeming_Dragonstorm
+    changes:
+      - add: Teeming Dragonstorm
+        cut: Darksteel Juggernaut
+  - id: add_Gravedig
+    changes:
+      - add: Gravedig
+        cut: Aetherize
+  - id: add_Temur_Ascendancy
+    changes:
+      - add: Temur Ascendancy
+        cut: Propaganda
+  - id: add_Shower_of_Arrows
+    changes:
+      - add: Shower of Arrows
+        cut: Cultivator's Caravan
+  - id: add_Nocturnal_Raid
+    changes:
+      - add: Nocturnal Raid
+        cut: Cultivator's Caravan
+  - id: add_Coat_of_Arms
+    changes:
+      - add: Coat of Arms
+        cut: Darksteel Juggernaut
+  - id: add_Pyromancers_Goggles
+    changes:
+      - add: Pyromancer's Goggles
+        cut: Broodstar
+  - id: add_Wooden_Cane
+    changes:
+      - add: Wooden Cane
+        cut: Aetherize
+  - id: add_TelimTors_Darts
+    changes:
+      - add: Telim'Tor's Darts
+        cut: Broodstar
+  - id: add_Molten_Echoes
+    changes:
+      - add: Molten Echoes
+        cut: Fall from Favor
+  - id: add_Hew_the_Entwood
+    changes:
+      - add: Hew the Entwood
+        cut: Cultivator's Caravan
+  - id: add_Seismic_Wave
+    changes:
+      - add: Seismic Wave
+        cut: Darksteel Juggernaut
+  - id: add_Roiling_Dragonstorm
+    changes:
+      - add: Roiling Dragonstorm
+        cut: Broodstar
+  - id: add_Locket_of_Yesterdays
+    changes:
+      - add: Locket of Yesterdays
+        cut: Propaganda
+  - id: add_Lost_in_Space
+    changes:
+      - add: Lost in Space
+        cut: Fall from Favor
+  - id: add_Hold_for_Questioning
+    changes:
+      - add: Hold for Questioning
+        cut: All Is Dust
+  - id: add_Stabilizer
+    changes:
+      - add: Stabilizer
+        cut: Counterspell
+  - id: add_Sigardas_Imprisonment
+    changes:
+      - add: Sigarda's Imprisonment
+        cut: Aetherize
+  - id: add_Mace_of_Disruption
+    changes:
+      - add: Mace of Disruption
+        cut: Darksteel Juggernaut
+  - id: add_Rakish_Crew
+    changes:
+      - add: Rakish Crew
+        cut: Fall from Favor
+  - id: add_Combustible_Gearhulk
+    changes:
+      - add: Combustible Gearhulk
+        cut: Broodstar
+  - id: add_Arcbound_Whelp
+    changes:
+      - add: Arcbound Whelp
+        cut: Aetherize
+  - id: add_Artists_Talent
+    changes:
+      - add: Artist's Talent
+        cut: Fall from Favor
+  - id: add_Grizzly_Fate
+    changes:
+      - add: Grizzly Fate
+        cut: Darksteel Juggernaut
+  - id: add_Nardole_Resourceful_Cyborg
+    changes:
+      - add: Nardole, Resourceful Cyborg
+        cut: Propaganda
+  - id: add_Thoughtcutter_Agent
+    changes:
+      - add: Thoughtcutter Agent
+        cut: Darksteel Juggernaut
+  - id: add_Wooden_Sphere
+    changes:
+      - add: Wooden Sphere
+        cut: Propaganda
+  - id: add_Flaming_Sword
+    changes:
+      - add: Flaming Sword
+        cut: Cultivator's Caravan
+  - id: add_Stick_Together
+    changes:
+      - add: Stick Together
+        cut: All Is Dust
+  - id: add_Mind_Transfer_Protocol
+    changes:
+      - add: Mind Transfer Protocol
+        cut: Cultivator's Caravan
+  - id: add_Crude_Bent_Blade
+    changes:
+      - add: Crude Bent Blade
+        cut: Darksteel Juggernaut
+  - id: add_Promise_of_Aclazotz
+    changes:
+      - add: Promise of Aclazotz
+        cut: Darksteel Juggernaut
+  - id: add_Thran_War_Machine
+    changes:
+      - add: Thran War Machine
+        cut: All Is Dust

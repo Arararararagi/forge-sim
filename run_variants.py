@@ -85,7 +85,12 @@ def run_unit(unit, args, lock, counters):
         args.games, unit["seed"], args.ai_timeout, args.clock, out_file, worker_home, args.java, args.sim_budget
     )
     try:
-        subprocess.run(cmd, cwd=args.cwd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=args.clock + 60)
+        # Anti-deadlock insurance: with the presets' effectively unlimited
+        # Forge clock (~2e9 s, games play out to a winner) 24h is the only
+        # backstop against a truly wedged JVM; small explicit clocks (quick
+        # smoke runs) keep the tight clock+60 kill as before.
+        runner_timeout = args.clock + 60 if args.clock <= 3600 else 86400
+        subprocess.run(cmd, cwd=args.cwd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=runner_timeout)
     except subprocess.TimeoutExpired:
         with lock:
             counters["timeout"] += 1

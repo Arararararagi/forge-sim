@@ -1,2 +1,6 @@
 __pycache__/
 *.pyc
+data/
+.DS_Store
+*.log
+docs/deck-report.html

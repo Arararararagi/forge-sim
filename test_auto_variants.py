@@ -47,6 +47,14 @@ class PresetsTest(unittest.TestCase):
     def test_large_runs_everything(self):
         self.assertIsNone(auto_variants.PRESETS["large"]["max_variants"])
 
+    def test_real_presets_play_until_winner(self):
+        """medium/large must not cap games with a wall clock: Forge's sim
+        timeout is mandatory but huge values are legal and effectively
+        unbounded; quick stays bounded for smoke purposes."""
+        self.assertEqual(auto_variants.PRESETS["medium"]["clock"], 2000000000)
+        self.assertEqual(auto_variants.PRESETS["large"]["clock"], 2000000000)
+        self.assertLessEqual(auto_variants.PRESETS["quick"]["clock"], 3600)
+
 
 class ResolveConfigTest(unittest.TestCase):
     def test_canonical_defaults(self):
@@ -127,6 +135,16 @@ class MainWrapTest(unittest.TestCase):
         run_argv = mock_main.call_args[0][0]
         self.assertEqual(run_argv[run_argv.index("--reps") + 1], "5")
         self.assertEqual(run_argv[run_argv.index("--max-variants") + 1], "1")
+
+    @mock.patch("run_variants.main")
+    def test_main_clock_override_propagates(self, mock_main):
+        auto_variants.main(["--preset", "quick", "--clock", "600", "--data-dir", "/tmp/wrap_clock"])
+        run_argv = mock_main.call_args[0][0]
+        self.assertEqual(run_argv[run_argv.index("--clock") + 1], "600")
+        # ...and the default preset clock passes through as-is
+        auto_variants.main(["--preset", "large", "--data-dir", "/tmp/wrap_clock2"])
+        run_argv = mock_main.call_args[0][0]
+        self.assertEqual(run_argv[run_argv.index("--clock") + 1], "2000000000")
 
 
 if __name__ == "__main__":

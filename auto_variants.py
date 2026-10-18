@@ -39,6 +39,9 @@ PRESETS = {
         "clock": 300,
     },
     # First real comparison: a handful of variants, a few independent reps.
+    # clock 2000000000 (~63 y) = effectively no wall cap: games play to a
+    # winner. Forge's per-decision SIM_BUDGET/AI_TIMEOUT and rule 726 loop
+    # handling keep runs finite in practice.
     "medium": {
         "reps": 3,
         "games": 1,
@@ -46,7 +49,7 @@ PRESETS = {
         "max_variants": 5,
         "sim_budget": -1,
         "ai_timeout": 2,
-        "clock": 300,
+        "clock": 2000000000,
     },
     # Full sweep: every variant, many reps. Long-running.
     "large": {
@@ -56,7 +59,7 @@ PRESETS = {
         "max_variants": None,
         "sim_budget": -1,
         "ai_timeout": 2,
-        "clock": 300,
+        "clock": 2000000000,
     },
 }
 

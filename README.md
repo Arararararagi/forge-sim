@@ -108,11 +108,17 @@ python3 auto_variants.py --preset medium   # 5 variants x 3 reps
 python3 auto_variants.py --preset large    # ALL variants x 10 reps
 ```
 
-| Preset | reps | games/unit | workers | max variants | sim budget | notes |
-|--------|------|-----------|---------|--------------|------------|-------|
-| `quick`  | 1  | 1 | 1 | 0 (baseline-only) | 40000 | hard-bounded smoke |
-| `medium` | 3  | 1 | 4 | 5 | unbounded | first comparison |
-| `large`  | 10 | 1 | 6 | all | unbounded | full sweep, hours |
+| Preset | reps | games/unit | workers | max variants | sim budget | clock | notes |
+|--------|------|-----------|---------|--------------|------------|-------|-------|
+| `quick`  | 1  | 1 | 1 | 0 (baseline-only) | 40000 | 300 s | hard-bounded smoke |
+| `medium` | 3  | 1 | 4 | 5 | unbounded | ∞ | first comparison |
+| `large`  | 10 | 1 | 6 | all | unbounded | ∞ | full sweep, hours |
+
+`medium`/`large` games have an effectively unlimited wall clock (~63-year
+Forge sim timeout): **games play out to a real winner** — no 5-minute draw
+cap. True runaway loops are still bounded by Forge's per-decision
+`SIM_BUDGET`/`AI_TIMEOUT` and rule-726 loop handling; the runner keeps a
+24 h anti-deadlock kill per unit (`--clock` can override at any tier).
 
 Any knob/path can be overridden:
 
@@ -155,10 +161,20 @@ python3 report.py --data-dir data/gen1 \
   --out-csv data/gen1/matrix-by-variant.csv --out-md data/gen1/REPORT.md
 ```
 
-CSV columns: `variant, games, wins, win_share, ci_lo, ci_hi (Wilson 95%),
-timeouts, timeout_rate, lost_first_rate, avg_turns, winner`. Variants
-declared in `manifest.json` always appear — even with 0 games — so nothing
-ever silently disappears. `winner` is per-seat detail from the JSONL.
+CSV columns: `variant, games, wins, win_share, decided, decided_win_share,
+draws, draw_rate, ci_lo, ci_hi (Wilson 95%), timeouts, timeout_rate,
+lost_first_rate, avg_turns, winner`. Semantics:
+
+- `win_share` = wins over **all games** — draws count as non-wins, so a
+  stall deck that wins 1 and draws 7 of 8 games shows 0.125, not 1.0.
+- `decided_win_share` / `draw_rate` keep the old decided-only view
+  (informational; diagnostics for sizing the next campaign's `--reps`).
+- `winner` is the promotion flag for the sub-branch loop: games ≥
+  `--min-games` (default 3), `wins ≥ 1`, Wilson `ci_lo` above the
+  baseline share, and timeout rate within 0.05 of the baseline's.
+
+Variants declared in `manifest.json` always appear — even with 0 games —
+so nothing ever silently disappears.
 
 ### 6. Iterate (sub-branches)
 
@@ -228,7 +244,7 @@ pod diversity matters as much as variant quality.
 |---------|---------------|
 | `[Error] <variant> produced no games (deck load failed?)` with 0-byte JSONL | Forge could not load the deck. Historically: stock JAR without `-o`/`-B`/absolute-deck support (use the SNAPSHOT JAR above — do **not** modify Forge) or pre-fix relative paths (now fixed). Campaign keeps going; counters record the error. |
 | `[Skipping <id>: ...]` at materialization | Deck could not be built (add missing from DB, cut not found, unfixable color). Skipped variants are still listed in the manifest and report with 0 games. |
-| Timeout counters > 0 | Unit exceeded `clock + 60 s`. Normal for long games; the partial games already written to the JSONL still count. |
+| Timeout counters > 0 | Runner-level kill fired (anti-deadlock insurance at 24 h, or `clock + 60 s` when a small explicit clock is set). Rare under the unlimited-by-default clock; the JSONL still holds any completed games. |
 | All variants 0% vs strong baseline | Check pod diversity (above). Focal is always seat 0. |
 
 ## Manual single game (no harness)
